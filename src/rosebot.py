@@ -30,10 +30,9 @@ import math
 class RoseBot(object):
     def __init__(self):
         # Use these instance variables
-        self.drive_system = DriveSystem()
         self.arm_and_claw = ArmAndClaw()
-        self.sensor_system = SensorSystem
-
+        self.sensor_system = SensorSystem()
+        self.drive_system = DriveSystem(self.sensor_system)
 
 ###############################################################################
 #    DriveSystem
@@ -167,7 +166,6 @@ class DriveSystem(object):
     # -------------------------------------------------------------------------
 
 
-
 ###############################################################################
 #    ArmAndClaw
 ###############################################################################
@@ -189,9 +187,16 @@ class ArmAndClaw(object):
         """
         self.touch_sensor = touch_sensor
         self.motor = Motor('A', motor_type='medium')
+        self.position = 0
 
     def raise_arm(self):
         """ Raises the Arm until its touch sensor is pressed. """
+        self.position = self.motor.get_position()
+        self.motor.turn_on(100)
+        while True:
+            if self.touch_sensor.is_pressed():
+                self.motor.turn_off()
+                break
 
     def calibrate_arm(self):
         """
@@ -203,17 +208,28 @@ class ArmAndClaw(object):
           3. Resets the motor's position to 0.
         """
 
+        ArmAndClaw.raise_arm()
+        ArmAndClaw.lower_arm()
+        self.motor.reset_position()
+
     def move_arm_to_position(self, desired_arm_position):
         """
         Move its Arm to the given position, where 0 means all the way DOWN.
         The robot must have previously calibrated its Arm.
         """
 
+
+
     def lower_arm(self):
         """
         Lowers the Arm until it is all the way down, i.e., position 0.
         The robot must have previously calibrated its Arm.
         """
+
+        self.motor.turn_on(-100)
+        while True:
+            if self.motor.get_position() == self.position:
+                break
 
 ###############################################################################
 #    SensorSystem
