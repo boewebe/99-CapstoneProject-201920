@@ -34,6 +34,7 @@ class RoseBot(object):
         self.drive_system = DriveSystem(self.sensor_system)
         self.arm_and_claw = ArmAndClaw(self.sensor_system.touch_sensor)
 
+
 ###############################################################################
 #    DriveSystem
 ###############################################################################
@@ -208,8 +209,8 @@ class ArmAndClaw(object):
           3. Resets the motor's position to 0.
         """
 
-        ArmAndClaw.raise_arm()
-        ArmAndClaw.lower_arm()
+        self.raise_arm()
+        self.lower_arm()
         self.motor.reset_position()
 
     def move_arm_to_position(self, desired_arm_position):
@@ -231,7 +232,6 @@ class ArmAndClaw(object):
                 self.motor.turn_off()
                 break
 
-
     def lower_arm(self):
         """
         Lowers the Arm until it is all the way down, i.e., position 0.
@@ -240,9 +240,10 @@ class ArmAndClaw(object):
 
         self.motor.turn_on(-100)
         while True:
-            if self.motor.get_position() == self.position:
+            if abs(self.motor.get_position()) >= 14.2 * 360:
                 self.motor.turn_off()
                 break
+
 
 ###############################################################################
 #    SensorSystem
