@@ -30,9 +30,9 @@ import math
 class RoseBot(object):
     def __init__(self):
         # Use these instance variables
-        self.arm_and_claw = ArmAndClaw()
         self.sensor_system = SensorSystem()
         self.drive_system = DriveSystem(self.sensor_system)
+        self.arm_and_claw = ArmAndClaw(self.sensor_system.touch_sensor)
 
 ###############################################################################
 #    DriveSystem
@@ -218,8 +218,6 @@ class ArmAndClaw(object):
         The robot must have previously calibrated its Arm.
         """
 
-
-
     def lower_arm(self):
         """
         Lowers the Arm until it is all the way down, i.e., position 0.
@@ -229,6 +227,7 @@ class ArmAndClaw(object):
         self.motor.turn_on(-100)
         while True:
             if self.motor.get_position() == self.position:
+                self.motor.turn_off()
                 break
 
 ###############################################################################
@@ -240,15 +239,14 @@ class SensorSystem(object):
     the Button objects that form part of the BeaconSystem and DisplaySystem.
     Use this object to get   ** any **   sensor reading.
     """
-    def __init__(self, touch_sensor, color_sensor, ir_proximity_sensor,
-                 ir_beacon_sensor, camera, beacon_system, display_system):
-        self.touch_sensor = touch_sensor
-        self.color_sensor = color_sensor
-        self.ir_proximity_sensor = ir_proximity_sensor
-        self.ir_beacon_sensor = ir_beacon_sensor
-        self.camera = camera
-        self.beacon_system = beacon_system
-        self.display_system = display_system
+    def __init__(self):
+        self.touch_sensor = TouchSensor(1)
+     #   self.color_sensor = color_sensor
+     #   self.ir_proximity_sensor = ir_proximity_sensor
+     #   self.ir_beacon_sensor = ir_beacon_sensor
+     #   self.camera = camera
+     #   self.beacon_system = beacon_system
+     #   self.display_system = display_system
 
 
 ###############################################################################
