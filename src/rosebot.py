@@ -213,7 +213,7 @@ class ArmAndClaw(object):
           3. Resets the motor's position to 0.
         """
 
-        self.raise_arm()
+        self.raise_arm(self)
         self.lower_arm()
         self.motor.reset_position()
 

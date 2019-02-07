@@ -5,3 +5,5 @@
 
 """it's gotta have cool background music. it should definite;y play the mario end-of-level theme when
 we complete the objective, possibly have some actiion music go while it's doing stuff."""
+
+'Locker code is 38-16-2  locker 1'
