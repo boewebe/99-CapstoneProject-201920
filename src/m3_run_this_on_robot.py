@@ -24,12 +24,13 @@ def run_test_on_arm():
     robot.drive_system.go(100,100)
     time.sleep(4)
     robot.drive_system.stop()
-    robot.arm_and_claw.raise_arm()
-    time.sleep(1)
-    robot.arm_and_claw.lower_arm()
-    time.sleep(1)
+    time.sleep(3)
+    print('should calibrate arm next')
     robot.arm_and_claw.calibrate_arm()
-    robot.arm_and_claw.move_arm_to_position(7.1 * 360)
+    print('made it this far')
+    time.sleep(1)
+
+    print('you are done')
 
 def real_thing():
     robot = rosebot.RoseBot()
