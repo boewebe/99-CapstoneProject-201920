@@ -21,6 +21,9 @@ def main():
 
 def run_test_on_arm():
     robot = rosebot.RoseBot()
+    robot.drive_system.go(100,100)
+    time.sleep(4)
+    robot.drive_system.stop()
     robot.arm_and_claw.raise_arm()
     time.sleep(1)
     robot.arm_and_claw.lower_arm()
