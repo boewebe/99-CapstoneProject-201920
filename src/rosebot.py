@@ -219,14 +219,11 @@ class ArmAndClaw(object):
         """
         self.raise_arm()
         print('arm has been raised')
-        raised_position = self.motor.get_position()
-        print(raised_position)
-        time.sleep(3)
+        self.motor.reset_position()
+        time.sleep(1)
         self.motor.turn_on(-100)
         while True:
-            current_position = self.motor.get_position()
-            print(raised_position - current_position)
-            if abs(raised_position - current_position) >= 14.2 * 365:
+            if abs(self.motor.get_position()) >= (14.2 * 360):
                 self.motor.turn_off()
                 break
         print('you made it out of the loop')
