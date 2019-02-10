@@ -93,6 +93,13 @@ class DriveSystem(object):
         Makes the robot go straight (forward if speed > 0, else backward)
         at the given speed for the given number of seconds.
         """
+        start_time = time.time()
+        self.go(speed, speed)
+        while True:
+            if seconds > (time.time() - start_time):
+                self.stop()
+                break
+
 
     def go_straight_for_inches_using_time(self, inches, speed):
         """
@@ -100,6 +107,14 @@ class DriveSystem(object):
         for the given number of inches, using the approximate
         conversion factor of 10.0 inches per second at 100 (full) speed.
         """
+        start_time = time.time()
+        self.go(speed, speed)
+        speed_increment = 1/10                           # 1 speed increment = + 1/10 inch per second
+        while True:
+            if inches == (time.time() - start_time) * (abs(speed) * speed_increment):
+                self.stop()
+                break
+
 
     def go_straight_for_inches_using_encoder(self, inches, speed):
         """
@@ -107,7 +122,12 @@ class DriveSystem(object):
         at the given speed for the given number of inches,
         using the encoder (degrees traveled sensor) built into the motors.
         """
-
+        starting_position = self.left_motor.get_position()
+        self.go(speed, speed)
+        while True:
+            if inches == ((self.left_motor.get_position() - starting_position)/360) * self.wheel_circumference:
+                self.stop()
+                break
     # -------------------------------------------------------------------------
     # Methods for driving that use the color sensor.
     # -------------------------------------------------------------------------
@@ -256,7 +276,7 @@ class ArmAndClaw(object):
 
         self.motor.turn_on(-100)
         while True:
-            if abs(self.motor.get_position()) >= 14.2 * 360:
+            if abs(self.motor.get_position()) >= (14.2 * 360):
                 self.motor.turn_off()
                 break
 
