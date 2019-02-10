@@ -74,6 +74,89 @@ def get_teleoperation_frame(window, mqtt_sender):
     return frame
 
 
+def get_drive_system_frame(window, mqtt_sender):
+
+    # Construct the frame to return:
+    frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
+    frame.grid()
+
+    # Construct the widgets on the frame:
+    frame_label = ttk.Label(frame, text="Drive System")
+    frame_lable_1 = ttk.Label(frame, text="Go straight for __ SECONDS at __ SPEED")
+    left_speed_label = ttk.Label(frame, text="Enter Desired Speed")
+    right_seconds_label = ttk.Label(frame, text="Enter Number of Seconds")
+
+    left_speed_entry = ttk.Entry(frame, width=8)
+    left_speed_entry.insert(0, "100")
+    right_seconds_entry = ttk.Entry(frame, width=8, justify=tkinter.RIGHT)
+    right_seconds_entry.insert(0, "10")
+
+    go_1 = ttk.Button(frame, text="Seconds/Speed")
+
+    frame_lable_2 = ttk.Label(frame, text="Go straight for __ INCHES at __ speed using TIME")
+    left_speed_label_1 = ttk.Label(frame, text="Enter Desired Speed")
+    right_inches_label_1 = ttk.Label(frame, text="Enter Number of Inches")
+
+    left_speed_entry_1 = ttk.Entry(frame, width=8)
+    left_speed_entry_1.insert(0, "100")
+    right_inches_entry_1 = ttk.Entry(frame, width=8, justify=tkinter.RIGHT)
+    right_inches_entry_1.insert(0, "8")
+
+    go_2 = ttk.Button(frame, text = "Inches/Time")
+
+    frame_lable_3 = ttk.Label(frame, text="Go straight for __ INCHES at __ speed using ENCODER")
+    left_speed_label_2 = ttk.Label(frame, text="Enter Desired Speed")
+    right_inches_label_2 = ttk.Label(frame, text="Enter Number of Inches")
+
+    left_speed_entry_2 = ttk.Entry(frame, width=8)
+    left_speed_entry_2.insert(0, "100")
+    right_inches_entry_2 = ttk.Entry(frame, width=8, justify=tkinter.RIGHT)
+    right_inches_entry_2.insert(0, "8")
+
+    go_3 = ttk.Button(frame, text="Inches/Encoder")
+
+
+
+    # Grid the widgets:
+    frame_label.grid(row=0, column=1)
+    frame_lable_1.grid(row=1, column = 1)
+    left_speed_label.grid(row=2, column=0)
+    right_seconds_label.grid(row=2, column=2)
+    left_speed_entry.grid(row=3, column=0)
+    right_seconds_entry.grid(row=3, column=2)
+
+    go_1.grid(row=4, column=1)
+
+    frame_lable_2.grid(row=5, column=1)
+    left_speed_label_1.grid(row=6, column=0)
+    right_inches_label_1.grid(row=6, column=2)
+    left_speed_entry_1.grid(row=7, column=0)
+    right_inches_entry_1.grid(row=7, column=2)
+
+    go_2.grid(row=8, column=1)
+
+    frame_lable_3.grid(row=9, column=1)
+    left_speed_label_2.grid(row=10, column=0)
+    right_inches_label_2.grid(row=10, column=2)
+    left_speed_entry_2.grid(row=11, column=0)
+    right_inches_entry_2.grid(row=11, column=2)
+
+    go_3.grid(row=12, column=1)
+
+    # Set the button callbacks:
+    go_1["command"] = lambda: handle_seconds_speed(mqtt_sender,
+        right_seconds_entry, left_speed_entry)
+    go_2["command"] = lambda: handle_inches_speed_time(mqtt_sender,
+        right_inches_entry_1, left_speed_entry)
+    go_3["command"] = lambda: handle_inches_speed_encoder(mqtt_sender,
+        right_inches_entry_2, left_speed_entry)
+
+
+
+    return frame
+
+
+
 def get_arm_frame(window, mqtt_sender):
     """
     Constructs and returns a frame on the given window, where the frame
@@ -218,6 +301,22 @@ def handle_stop(mqtt_sender):
     print("stop")
     mqtt_sender.send_message("stop")
 
+
+###############################################################################
+# Handlers for Buttons in the DriveSystem frame.
+###############################################################################
+def handle_seconds_speed(mqtt_sender, num_seconds, desired_speed):
+    print("Seconds/Speed", num_seconds.get(), desired_speed.get())
+    mqtt_sender.send_message("seconds_speed", [num_seconds.get(), desired_speed.get()])
+
+
+def handle_inches_speed_time(mqtt_sender, num_inches, desired_speed):
+    print("Inches/Time", num_inches.get(), desired_speed.get())
+    mqtt_sender.send_message("inches_time", [num_inches.get(), desired_speed.get()])
+
+def handle_inches_speed_encoder(mqtt_sender, num_inches, desired_speed):
+    print("Inches/Encoder", num_inches.get(), desired_speed.get())
+    mqtt_sender.send_message("inches_encoder", [num_inches.get(), desired_speed.get()])
 
 ###############################################################################
 # Handlers for Buttons in the ArmAndClaw frame.

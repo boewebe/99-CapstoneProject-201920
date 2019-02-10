@@ -37,6 +37,15 @@ class ResponderToGUIMessages(object):
     def move_arm_to_position(self, position):
         self.robot.arm_and_claw.move_arm_to_position(position)
 
-    def quit(self):
+    #def quit(self):
 
-    def exit(self):
+    #def exit(self):
+
+    def seconds_speed(self, num_seconds, desired_speed):
+        self.robot.drive_system.go_straight_for_seconds(num_seconds, desired_speed)
+
+    def inches_time(self, num_inches, desired_speed):
+        self.robot.drive_system.go_straight_for_inches_using_time(num_inches, desired_speed)
+
+    def inches_encoder(self, num_inches, desired_speed):
+        self.robot.drive_system.go_straight_for_inches_using_encoder(num_inches, desired_speed)
