@@ -113,7 +113,7 @@ class DriveSystem(object):
         self.go(speed, speed)
         speed_increment = 1/10                           # 1 speed increment = + 1/10 inch per second
         while True:
-            if inches == (time.time() - start_time) * (abs(speed) * speed_increment):
+            if int(inches) <= (time.time() - start_time) * (abs(int(speed)) * speed_increment):
                 self.stop()
                 break
 
@@ -124,10 +124,10 @@ class DriveSystem(object):
         at the given speed for the given number of inches,
         using the encoder (degrees traveled sensor) built into the motors.
         """
-        starting_position = self.left_motor.get_position()
+        starting_position = int(self.left_motor.get_position())
         self.go(speed, speed)
         while True:
-            if inches == ((self.left_motor.get_position() - starting_position)/360) * self.wheel_circumference:
+            if int(inches) <= ((int(self.left_motor.get_position()) - starting_position)/360) * self.wheel_circumference:
                 self.stop()
                 break
     # -------------------------------------------------------------------------
