@@ -303,7 +303,7 @@ class ArmAndClaw(object):
 
         if desired_arm_position > self.motor.get_position():
             motor_speed = 100
-        if desired_arm_position < self.motor.get_position():
+        elif desired_arm_position < self.motor.get_position():
             motor_speed = -100
         else:
             motor_speed = 0
