@@ -173,6 +173,7 @@ def get_arm_frame(window, mqtt_sender):
     frame_label = ttk.Label(frame, text="Arm and Claw")
     position_label = ttk.Label(frame, text="Desired arm position:")
     position_entry = ttk.Entry(frame, width=8)
+    position_entry.insert(0, "1000")
 
     raise_arm_button = ttk.Button(frame, text="Raise arm")
     lower_arm_button = ttk.Button(frame, text="Lower arm")
