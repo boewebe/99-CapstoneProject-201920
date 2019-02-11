@@ -52,7 +52,9 @@ class ResponderToGUIMessages(object):
     def inches_encoder(self, num_inches, desired_speed):
         self.robot.drive_system.go_straight_for_inches_using_encoder(num_inches, desired_speed)
 
-    #def beep_n_times(self, n):
+    def beep_n_times(self, n):
+        for k in range(n):
+            self.robot.sound_system.beeper.beep().wait()
 
     #def play_tone(self, frequency, duration_time):
 

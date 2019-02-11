@@ -248,6 +248,9 @@ def get_sound_system_frame(window, mqtt_sender):
     frequency = ttk.Entry(frame, width=8)
     frequency.insert(0, "440")
     frequency_button = ttk.Button(frame, text="Frequency")
+    duration = ttk.Entry(frame, width=8)
+    duration.insert(0, "10")
+    duration_button = ttk.Button(frame, text="Duration")
 
     frame_label_3 = ttk.Label(frame, text="Speak a given phrase")
     phrase = ttk.Entry(frame, width=8)
@@ -259,11 +262,18 @@ def get_sound_system_frame(window, mqtt_sender):
     beep_number_times.grid(row=2, column=1)
     Beep.grid(row=3, column=1)
     frame_label_2.grid(row=4, column=1)
-    frequency.grid(row=5, column=1)
-    frequency_button.grid(row=6, column=1)
+    frequency.grid(row=5, column=0)
+    frequency_button.grid(row=6, column=0)
+    duration.grid(row=5, column=2)
+    duration_button.grid(row=6, column=2)
     frame_label_3.grid(row=7, column=1)
     phrase.grid(row=8, column=1)
     phrase_button.grid(row=9, column=1)
+
+    # Set the Button callbacks:
+    Beep["command"] = lambda: handle_Beep(beep_number_times, mqtt_sender)
+    frequency_button["command"] = lambda: handle_frequency(frequency, duration, mqtt_sender)
+    phrase_button["command"] = lambda: handle_phrase(phrase, mqtt_sender)
 
     return frame
 
@@ -418,3 +428,20 @@ def handle_exit(mqtt_sender):
     print("Exit")
     mqtt_sender.send_message("exit")
 
+
+###############################################################################
+# Handlers for Buttons in the Control frame.
+###############################################################################
+
+def handle_Beep(number_of_beeps, mqtt_sender):
+    print("Beep", number_of_beeps, "times")
+    mqtt_sender.send_message("beep_n_times", number_of_beeps)
+
+def handle_frequency(frequency, duration, mqtt_sender):
+    print("Sound Frequency", frequency, "for", duration, "seconds")
+    mqtt_sender.send_message("play_tone", [frequency, duration])
+
+
+def handle_phrase(phrase, mqtt_sender):
+    print("Phrase", phrase)
+    mqtt_sender.send_message("speak_phrase", phrase)
