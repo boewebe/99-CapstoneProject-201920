@@ -230,6 +230,32 @@ def get_control_frame(window, mqtt_sender):
     return frame
 
 
+def get_sound_system_frame(window, mqtt_sender):
+
+    # Construct the frame to return:
+    frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
+    frame.grid()
+
+    # Construct the widgets on the frame:
+    frame_label = ttk.Label(frame, text="Sound System")
+    frame_label_1 = ttk.Label(frame,text ="Beep for a given number of times")
+    beep_number_times = ttk.Entry(frame, width=8)
+    beep_number_times.insert(0, "5")
+
+
+    #quit_robot_button = ttk.Button(frame, text="Stop the robot's program")
+    #exit_button = ttk.Button(frame, text="Stop this and the robot's program")
+
+    # Grid the widgets:
+    frame_label.grid(row=0, column=1)
+    frame_label_1.grid(row=1, column=1)
+    beep_number_times.grid(row=2, column=1)
+    #quit_robot_button.grid(row=1, column=0)
+    #exit_button.grid(row=1, column=2)
+
+    return frame
+
+
 ###############################################################################
 ###############################################################################
 # The following specifies, for each Button,
