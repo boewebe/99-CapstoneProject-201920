@@ -238,20 +238,31 @@ def get_sound_system_frame(window, mqtt_sender):
 
     # Construct the widgets on the frame:
     frame_label = ttk.Label(frame, text="Sound System")
-    frame_label_1 = ttk.Label(frame,text ="Beep for a given number of times")
+    frame_label_1 = ttk.Label(frame,text="Beep for a given number of times")
     beep_number_times = ttk.Entry(frame, width=8)
     beep_number_times.insert(0, "5")
+    Beep = ttk.Button(frame, text="Beep")
 
+    frame_label_2 = ttk.Label(frame,text="Play a tone at a given frequency for a given duration")
+    frequency = ttk.Entry(frame, width=8)
+    frequency.insert(0, "440")
+    frequency_button = ttk.Button(frame, text="Frequency")
 
-    #quit_robot_button = ttk.Button(frame, text="Stop the robot's program")
-    #exit_button = ttk.Button(frame, text="Stop this and the robot's program")
+    frame_label_3 = ttk.Label(frame, text="Speak a given phrase")
+    phrase = ttk.Entry(frame, width=8)
+    phrase_button = ttk.Button(frame, text="Phrase")
 
     # Grid the widgets:
     frame_label.grid(row=0, column=1)
     frame_label_1.grid(row=1, column=1)
     beep_number_times.grid(row=2, column=1)
-    #quit_robot_button.grid(row=1, column=0)
-    #exit_button.grid(row=1, column=2)
+    Beep.grid(row=3, column=1)
+    frame_label_2.grid(row=4, column=1)
+    frequency.grid(row=5, column=1)
+    frequency_button.grid(row=6, column=1)
+    frame_label_3.grid(row=7, column=1)
+    phrase.grid(row=8, column=1)
+    phrase_button.grid(row=9, column=1)
 
     return frame
 

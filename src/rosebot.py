@@ -95,8 +95,10 @@ class DriveSystem(object):
         """
         start_time = time.time()
         self.go(speed, speed)
+        print("go")
         while True:
-            if seconds > (time.time() - start_time):
+            if int(seconds) < (time.time() - start_time):
+                print("stop")
                 self.stop()
                 break
 
