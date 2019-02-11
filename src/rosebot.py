@@ -288,7 +288,7 @@ class ArmAndClaw(object):
         self.motor.reset_position()
         time.sleep(1)
         self.lower_arm()
-        print('you made it out of the loop')
+        print('arm has been lowered')
         self.motor.reset_position()
 
     def move_arm_to_position(self, desired_arm_position):
