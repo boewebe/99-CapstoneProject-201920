@@ -287,11 +287,7 @@ class ArmAndClaw(object):
         print('arm has been raised')
         self.motor.reset_position()
         time.sleep(1)
-        self.motor.turn_on(-100)
-        while True:
-            if abs(self.motor.get_position()) >= (14.2 * 360):
-                self.motor.turn_off()
-                break
+        self.lower_arm()
         print('you made it out of the loop')
         self.motor.reset_position()
 
@@ -322,7 +318,7 @@ class ArmAndClaw(object):
 
         self.motor.turn_on(-100)
         while True:
-            if abs(self.motor.get_position()) >= (14.1 * 360):
+            if abs(self.motor.get_position()) >= (14.2 * 360):
                 self.motor.turn_off()
                 break
 
@@ -345,7 +341,6 @@ class SensorSystem(object):
         # self.ir_beacon_sensor = InfraredBeaconSensor(4)
         # self.beacon_system =
         # self.display_system =
-
 
 
 ###############################################################################
