@@ -69,6 +69,8 @@ class DriveSystem(object):
         self.left_motor = Motor('B')
         self.right_motor = Motor('C')
         self.ir_prox_sensor = InfraredProximitySensor(4)
+        self.color_sensor = ColorSensor(3)
+        self.camera = Camera(2)
 
         self.wheel_circumference = 1.3 * math.pi
 
@@ -140,11 +142,25 @@ class DriveSystem(object):
         by the color_sensor is less than the given intensity.
         """
 
+        while True:
+            self.go(int(speed), int(speed))
+            if self.color_sensor.get_ambient_light_intensity() < int(intensity):
+                self.stop()
+                break
+
+
     def go_straight_until_intensity_is_greater_than(self, intensity, speed):
         """
         Goes straight at the given speed until the intensity returned
         by the color_sensor is greater than the given intensity.
         """
+
+        while True:
+            self.go(int(speed), int(speed))
+            if self.color_sensor.get_ambient_light_intensity() > intensity:
+                self.stop()
+                break
+
 
     def go_straight_until_color_is(self, color, speed):
         """
@@ -160,6 +176,18 @@ class DriveSystem(object):
         the color sensor's color.
         """
 
+        while True:
+            self.go(int(speed), int(speed))
+
+            if type(color) == str:
+                if self.color_sensor.get_color() == color:
+                    self.stop()
+                    break
+            elif type(color) == int:
+                if self.color_sensor.get_color_as_name() == color:
+                    self.stop()
+                    break
+
 
     def go_straight_until_color_is_not(self, color, speed):
         """
@@ -169,6 +197,19 @@ class DriveSystem(object):
         Colors can be integers from 0 to 7 or any of the strings
         listed in the ColorSensor class.
         """
+
+        while True:
+            self.go(int(speed), int(speed))
+
+            if type(color) == str:
+                if self.color_sensor.get_color() != color:
+                    self.stop()
+                    break
+            elif type(color) == int:
+                if self.color_sensor.get_color_as_name() != color:
+                    self.stop()
+                    break
+
 
     # -------------------------------------------------------------------------
     # Methods for driving that use the infrared proximity sensor.
@@ -210,7 +251,13 @@ class DriveSystem(object):
         """
 
         self.go(speed, speed)
-
+        while True:
+            if self.ir_prox_sensor.get_distance_in_inches() == (int(inches) - int(delta)):
+                self.stop()
+                break
+            elif self.ir_prox_sensor.get_distance_in_inches() == (int(inches) + int(delta)):
+                self.stop()
+                break
 
     # -------------------------------------------------------------------------
     # Methods for driving that use the infrared beacon sensor.
@@ -244,6 +291,9 @@ class DriveSystem(object):
         (if any).
         """
 
+
+
+
     def spin_clockwise_until_sees_object(self, speed, area):
         """
         Spins clockwise at the given speed until the camera sees an object
@@ -251,12 +301,27 @@ class DriveSystem(object):
         Requires that the user train the camera on the color of the object.
         """
 
+        while True:
+            self.go(-int(speed), int(speed))
+            if self.camera.get_biggest_blob() >= int(area):
+                self.stop()
+                break
+
+
     def spin_counterclockwise_until_sees_object(self, speed, area):
         """
         Spins counter-clockwise at the given speed until the camera sees an object
         of the trained color whose area is at least the given area.
         Requires that the user train the camera on the color of the object.
         """
+
+        while True:
+            self.go(int(speed), -int(speed))
+            b = self.camera.get_biggest_blob()
+            if (b.width * b.height) >= int(area):
+                self.stop()
+                break
+
 
 ###############################################################################
 #    ArmAndClaw
@@ -598,8 +663,8 @@ class InfraredProximitySensor(object):
         in inches, where about 39.37 inches (which is 100 cm) means no object
         is within its field of vision.
         """
-        inches_per_cm = 2.54
-        return 48 * inches_per_cm * self.get_distance() / 100
+        cm_per_inch = 2.54
+        return (48 / cm_per_inch) * self.get_distance() / 100
 
 
 ###############################################################################
