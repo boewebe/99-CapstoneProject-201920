@@ -41,10 +41,6 @@ class ResponderToGUIMessages(object):
     def quit(self):
         self.stop_program = True
 
-    def exit(self):
-        self.stop_program = True
-
-
     def seconds_speed(self, num_seconds, desired_speed):
         self.robot.drive_system.go_straight_for_seconds(num_seconds, desired_speed)
 
@@ -55,11 +51,12 @@ class ResponderToGUIMessages(object):
         self.robot.drive_system.go_straight_for_inches_using_encoder(num_inches, desired_speed)
 
     def beep_n_times(self, n):
-        for k in range(n):
+        print("beeping", n, "times")
+        for k in range(int(n)):
             self.robot.sound_system.beeper.beep().wait()
 
     def play_tone(self, frequency, duration_time):
-        self.robot.sound_system.tone_maker.play_tone(frequency, duration_time).wait()
+        self.robot.sound_system.tone_maker.play_tone(int(frequency), int(duration_time))
 
     def speak_phrase(self, phrase):
-        self.robot.sound_system.speech_maker.speak(phrase).wait()
+        self.robot.sound_system.speech_maker.speak(phrase)
