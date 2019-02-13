@@ -303,7 +303,8 @@ class DriveSystem(object):
 
         while True:
             self.go(-int(speed), int(speed))
-            if self.camera.get_biggest_blob() >= int(area):
+            b = self.camera.get_biggest_blob()
+            if (b.width * b.height) >= int(area):
                 self.stop()
                 break
 
