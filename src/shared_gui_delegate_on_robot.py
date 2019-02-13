@@ -60,3 +60,8 @@ class ResponderToGUIMessages(object):
 
     def speak_phrase(self, phrase):
         self.robot.sound_system.speech_maker.speak(phrase)
+
+
+
+    def until_color_is(self, color, speed):
+        self.robot.drive_system.go_straight_until_color_is(color, speed)

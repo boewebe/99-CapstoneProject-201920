@@ -117,6 +117,42 @@ def get_drive_system_frame(window, mqtt_sender):
     go_3 = ttk.Button(frame, text="Inches/Encoder")
 
 
+    ##########################
+    #Feature 8 Implementations
+    ##########################
+
+    color_system_label = ttk.Label(frame, text="Color System")
+
+    intensity_less_than = ttk.Label(frame, text="Go Straight Intensity Less Than")
+    left_speed_entry_3 = ttk.Entry(frame, width=8)
+    left_speed_entry_3.insert(0, "100")
+    right_intensity_entry = ttk.Entry(frame, width=8, justify=tkinter.RIGHT)
+    right_intensity_entry.insert(0, "8")
+    intensity_less_than_button = ttk.Button(frame, text="Straight/Less")
+
+    intensity_greater_than = ttk.Label(frame, text="Go Straight Intensity Greater Than")
+    left_speed_entry_4 = ttk.Entry(frame, width=8)
+    left_speed_entry_4.insert(0, "100")
+    right_intensity_entry_1 = ttk.Entry(frame, width=8, justify=tkinter.RIGHT)
+    right_intensity_entry_1.insert(0, "8")
+    intensity_greater_than_button = ttk.Button(frame, text="Straight/Greater")
+
+    color_is = ttk.Label(frame, text="Go Straight Until Color is")
+    left_speed_entry_5 = ttk.Entry(frame, width=8)
+    left_speed_entry_5.insert(0, "100")
+    right_color_entry = ttk.Entry(frame, width=8, justify=tkinter.RIGHT)
+    right_color_entry.insert(0, "8")
+    color_is_button = ttk.Button(frame, text="Color/Is")
+
+    color_is_not = ttk.Label(frame, text="Go Straight Until Color is NOT")
+    left_speed_entry_6 = ttk.Entry(frame, width=8)
+    left_speed_entry_6.insert(0, "100")
+    right_color_not_entry = ttk.Entry(frame, width=8, justify=tkinter.RIGHT)
+    right_color_not_entry.insert(0, "8")
+    color_is_not_button = ttk.Button(frame, text="Color/Not")
+
+
+
 
     # Grid the widgets:
     frame_label.grid(row=0, column=1)
@@ -144,6 +180,24 @@ def get_drive_system_frame(window, mqtt_sender):
 
     go_3.grid(row=12, column=1)
 
+    color_system_label.grid(row=13, column=1)
+    intensity_less_than.grid(row=14, column=1)
+    left_speed_entry_3.grid(row=15, column=0)
+    right_intensity_entry.grid(row=15, column=2)
+    intensity_less_than_button.grid(row=16, column=1)
+    intensity_greater_than.grid(row=17, column=1)
+    left_speed_entry_4.grid(row=18, column=0)
+    right_intensity_entry_1.grid(row=19, column=2)
+    intensity_greater_than_button.grid(row=20, column=1)
+    color_is.grid(row=21, column=1)
+    left_speed_entry_5.grid(row=22, column=0)
+    right_color_entry.grid(row=22, column=2)
+    color_is_button.grid(row=23, column=1)
+    color_is_not.grid(row=24, column=1)
+    left_speed_entry_6.grid(row=25, column=0)
+    right_color_not_entry.grid(row=26, column=2)
+    color_is_not_button.grid(row=27, column=1)
+
     # Set the button callbacks:
     go_1["command"] = lambda: handle_seconds_speed(mqtt_sender,
         right_seconds_entry, left_speed_entry)
@@ -151,6 +205,8 @@ def get_drive_system_frame(window, mqtt_sender):
         right_inches_entry_1, left_speed_entry)
     go_3["command"] = lambda: handle_inches_speed_encoder(mqtt_sender,
         right_inches_entry_2, left_speed_entry)
+    color_is_button["command"] = lambda: handle_until_color_is(mqtt_sender,
+        right_color_entry, left_speed_entry_5)
 
 
 
@@ -275,6 +331,9 @@ def get_sound_system_frame(window, mqtt_sender):
     phrase_button["command"] = lambda: handle_phrase(phrase, mqtt_sender)
 
     return frame
+
+
+
 
 
 ###############################################################################
@@ -445,3 +504,11 @@ def handle_frequency(frequency, duration, mqtt_sender):
 def handle_phrase(phrase, mqtt_sender):
     print("Phrase", phrase.get())
     mqtt_sender.send_message("speak_phrase", phrase.get())
+
+
+
+
+
+def handle_until_color_is(mqtt_sender, color, speed):
+    print("Until Color Is", color.get(), "at speed", speed.get())
+    mqtt_sender.send_message("until_color_is", [color.get(), speed.get()])
