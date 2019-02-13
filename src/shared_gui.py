@@ -83,130 +83,94 @@ def get_drive_system_frame(window, mqtt_sender):
 
     # Construct the widgets on the frame:
     frame_label = ttk.Label(frame, text="Drive System")
-    frame_lable_1 = ttk.Label(frame, text="Go straight for __ SECONDS at __ SPEED")
-    left_speed_label = ttk.Label(frame, text="Enter Desired Speed")
-    right_seconds_label = ttk.Label(frame, text="Enter Number of Seconds")
 
-    left_speed_entry = ttk.Entry(frame, width=8)
-    left_speed_entry.insert(0, "100")
-    right_seconds_entry = ttk.Entry(frame, width=8, justify=tkinter.RIGHT)
-    right_seconds_entry.insert(0, "10")
+    entry_label_1 = ttk.Label(frame, text="Enter Speed")
+    entry_label_2 = ttk.Label(frame, text="Enter Seconds")
+    entry_label_3 =  ttk.Label(frame, text="Enter Inches")
+    entry_label_4 =  ttk.Label(frame, text="Enter Color")
+    entry_label_5 =  ttk.Label(frame, text="Enter Intensity")
 
-    go_1 = ttk.Button(frame, text="Seconds/Speed")
+    speed_entry = ttk.Entry(frame, width=8)
+    speed_entry.insert(0, "100")
+    seconds_entry = ttk.Entry(frame, width=8)
+    seconds_entry.insert(0, "5")
+    inches_entry = ttk.Entry(frame, width=8)
+    inches_entry.insert(0, "10")
+    color_entry = ttk.Entry(frame, width=8)
+    color_entry.insert(0, "Yellow")
+    intensity_entry = ttk.Entry(frame, width=8)
+    intensity_entry.insert(0, "50")
 
-    frame_lable_2 = ttk.Label(frame, text="Go straight for __ INCHES at __ speed using TIME")
-    left_speed_label_1 = ttk.Label(frame, text="Enter Desired Speed")
-    right_inches_label_1 = ttk.Label(frame, text="Enter Number of Inches")
+    # Buttons and Labels
 
-    left_speed_entry_1 = ttk.Entry(frame, width=8)
-    left_speed_entry_1.insert(0, "100")
-    right_inches_entry_1 = ttk.Entry(frame, width=8, justify=tkinter.RIGHT)
-    right_inches_entry_1.insert(0, "8")
-
-    go_2 = ttk.Button(frame, text = "Inches/Time")
-
-    frame_lable_3 = ttk.Label(frame, text="Go straight for __ INCHES at __ speed using ENCODER")
-    left_speed_label_2 = ttk.Label(frame, text="Enter Desired Speed")
-    right_inches_label_2 = ttk.Label(frame, text="Enter Number of Inches")
-
-    left_speed_entry_2 = ttk.Entry(frame, width=8)
-    left_speed_entry_2.insert(0, "100")
-    right_inches_entry_2 = ttk.Entry(frame, width=8, justify=tkinter.RIGHT)
-    right_inches_entry_2.insert(0, "8")
-
-    go_3 = ttk.Button(frame, text="Inches/Encoder")
-
+    seconds_speed = ttk.Button(frame, text="Seconds/Speed")
+    inches_time = ttk.Button(frame, text="Inches/Time")
+    inches_encoder = ttk.Button(frame, text="Inches/Encoder")
 
     ##########################
     #Feature 8 Implementations
     ##########################
 
-    color_system_label = ttk.Label(frame, text="Color System")
+    color_system_label = ttk.Label(frame, text="Color System Buttons")
 
-    intensity_less_than = ttk.Label(frame, text="Go Straight Intensity Less Than")
-    left_speed_entry_3 = ttk.Entry(frame, width=8)
-    left_speed_entry_3.insert(0, "100")
-    right_intensity_entry = ttk.Entry(frame, width=8, justify=tkinter.RIGHT)
-    right_intensity_entry.insert(0, "8")
-    intensity_less_than_button = ttk.Button(frame, text="Straight/Less")
+    intensity_less_than_button = ttk.Button(frame, text="Intensity Less")
+    intensity_greater_than_button = ttk.Button(frame, text="Intensity Greater")
+    color_is_button = ttk.Button(frame, text="Straight/Color is")
+    color_is_not_button = ttk.Button(frame, text="Straight/Color is NOT")
 
-    intensity_greater_than = ttk.Label(frame, text="Go Straight Intensity Greater Than")
-    left_speed_entry_4 = ttk.Entry(frame, width=8)
-    left_speed_entry_4.insert(0, "100")
-    right_intensity_entry_1 = ttk.Entry(frame, width=8, justify=tkinter.RIGHT)
-    right_intensity_entry_1.insert(0, "8")
-    intensity_greater_than_button = ttk.Button(frame, text="Straight/Greater")
-
-    color_is = ttk.Label(frame, text="Go Straight Until Color is")
-    left_speed_entry_5 = ttk.Entry(frame, width=8)
-    left_speed_entry_5.insert(0, "100")
-    right_color_entry = ttk.Entry(frame, width=8, justify=tkinter.RIGHT)
-    right_color_entry.insert(0, "8")
-    color_is_button = ttk.Button(frame, text="Color/Is")
-
-    color_is_not = ttk.Label(frame, text="Go Straight Until Color is NOT")
-    left_speed_entry_6 = ttk.Entry(frame, width=8)
-    left_speed_entry_6.insert(0, "100")
-    right_color_not_entry = ttk.Entry(frame, width=8, justify=tkinter.RIGHT)
-    right_color_not_entry.insert(0, "8")
-    color_is_not_button = ttk.Button(frame, text="Color/Not")
-
-
-
+    blank_line_label = ttk.Label(frame, text="")
+    blank_line_label_1 = ttk.Label(frame, text="")
+    blank_line_label_2 = ttk.Label(frame, text="")
 
     # Grid the widgets:
-    frame_label.grid(row=0, column=1)
-    frame_lable_1.grid(row=1, column = 1)
-    left_speed_label.grid(row=2, column=0)
-    right_seconds_label.grid(row=2, column=2)
-    left_speed_entry.grid(row=3, column=0)
-    right_seconds_entry.grid(row=3, column=2)
+    frame_label.grid(row=0, column=2)
 
-    go_1.grid(row=4, column=1)
+    entry_label_1.grid(row=1, column=0)
+    entry_label_2.grid(row=1, column=1)
+    entry_label_3.grid(row=1, column=2)
+    entry_label_4.grid(row=1, column=3)
+    entry_label_5.grid(row=1, column=4)
 
-    frame_lable_2.grid(row=5, column=1)
-    left_speed_label_1.grid(row=6, column=0)
-    right_inches_label_1.grid(row=6, column=2)
-    left_speed_entry_1.grid(row=7, column=0)
-    right_inches_entry_1.grid(row=7, column=2)
+    speed_entry.grid(row=2, column=0)
+    seconds_entry.grid(row=2, column=1)
+    inches_entry.grid(row=2, column=2)
+    color_entry.grid(row=2, column=3)
+    intensity_entry.grid(row=2, column=4)
 
-    go_2.grid(row=8, column=1)
+    blank_line_label.grid(row=3, column=0)
 
-    frame_lable_3.grid(row=9, column=1)
-    left_speed_label_2.grid(row=10, column=0)
-    right_inches_label_2.grid(row=10, column=2)
-    left_speed_entry_2.grid(row=11, column=0)
-    right_inches_entry_2.grid(row=11, column=2)
+    # Buttons
+    seconds_speed.grid(row=4, column=1)
+    inches_time.grid(row=4, column=2)
+    inches_encoder.grid(row=4, column=3)
 
-    go_3.grid(row=12, column=1)
+    blank_line_label_1.grid(row=5, column=0)
 
-    color_system_label.grid(row=13, column=1)
-    intensity_less_than.grid(row=14, column=1)
-    left_speed_entry_3.grid(row=15, column=0)
-    right_intensity_entry.grid(row=15, column=2)
-    intensity_less_than_button.grid(row=16, column=1)
-    intensity_greater_than.grid(row=17, column=1)
-    left_speed_entry_4.grid(row=18, column=0)
-    right_intensity_entry_1.grid(row=19, column=2)
-    intensity_greater_than_button.grid(row=20, column=1)
-    color_is.grid(row=21, column=1)
-    left_speed_entry_5.grid(row=22, column=0)
-    right_color_entry.grid(row=22, column=2)
-    color_is_button.grid(row=23, column=1)
-    color_is_not.grid(row=24, column=1)
-    left_speed_entry_6.grid(row=25, column=0)
-    right_color_not_entry.grid(row=26, column=2)
-    color_is_not_button.grid(row=27, column=1)
+    color_system_label.grid(row=6, column=2)
+    blank_line_label_2.grid(row=7, column=0)
+
+    intensity_less_than_button.grid(row=8, column=0)
+    intensity_greater_than_button.grid(row=8, column=1)
+    color_is_button.grid(row=8, column=2)
+    color_is_not_button.grid(row=8, column=3)
+
+
 
     # Set the button callbacks:
-    go_1["command"] = lambda: handle_seconds_speed(mqtt_sender,
-        right_seconds_entry, left_speed_entry)
-    go_2["command"] = lambda: handle_inches_speed_time(mqtt_sender,
-        right_inches_entry_1, left_speed_entry)
-    go_3["command"] = lambda: handle_inches_speed_encoder(mqtt_sender,
-        right_inches_entry_2, left_speed_entry)
+    seconds_speed["command"] = lambda: handle_seconds_speed(mqtt_sender,
+        seconds_entry, speed_entry)
+    inches_time["command"] = lambda: handle_inches_speed_time(mqtt_sender,
+        inches_entry, speed_entry)
+    inches_encoder["command"] = lambda: handle_inches_speed_encoder(mqtt_sender,
+        inches_entry, speed_entry)
+    intensity_less_than_button["command"] = lambda: handle_intensity_less_than(mqtt_sender,
+        intensity_entry, speed_entry)
+    intensity_greater_than_button["command"] = lambda: handle_intensity_greater_than(mqtt_sender,
+        intensity_entry, speed_entry)
     color_is_button["command"] = lambda: handle_until_color_is(mqtt_sender,
-        right_color_entry, left_speed_entry_5)
+        color_entry, speed_entry)
+    color_is_not_button["command"] = lambda: handle_until_color_is_not(mqtt_sender,
+        color_entry, speed_entry)
 
 
 
@@ -507,8 +471,28 @@ def handle_phrase(phrase, mqtt_sender):
 
 
 
+########### Color Sensor
 
+def handle_intensity_less_than(mqtt_sender, intensity, speed):
+    print("Less Intensity:", intensity.get())
+    print("Speed:", speed.get())
+    print()
+    mqtt_sender.send_message("intensity_less_than", [intensity.get(), speed.get()])
+
+def handle_intensity_greater_than(mqtt_sender, intensity, speed):
+    print("Greater Intensity:", intensity.get())
+    print("Speed:", speed.get())
+    print()
+    mqtt_sender.send_message("intensity_greater_than", [intensity.get(), speed.get()])
 
 def handle_until_color_is(mqtt_sender, color, speed):
-    print("Until Color Is", color.get(), "at speed", speed.get())
+    print("Color (Is function):", color.get())
+    print("Speed:", speed.get())
+    print()
+    mqtt_sender.send_message("until_color_is", [color.get(), speed.get()])
+
+def handle_until_color_is_not(mqtt_sender, color, speed):
+    print("Color (Is NOT function):", color.get())
+    print("Speed:", speed.get())
+    print()
     mqtt_sender.send_message("until_color_is", [color.get(), speed.get()])
