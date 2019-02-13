@@ -56,7 +56,7 @@ class ResponderToGUIMessages(object):
             self.robot.sound_system.beeper.beep().wait()
 
     def play_tone(self, frequency, duration_time):
-        self.robot.sound_system.tone_maker.play_tone(int(frequency), (int(duration_time) * 100))
+        self.robot.sound_system.tone_maker.play_tone(int(frequency), (int(duration_time) * 1000)).wait()
 
     def speak_phrase(self, phrase):
         self.robot.sound_system.speech_maker.speak(phrase)
