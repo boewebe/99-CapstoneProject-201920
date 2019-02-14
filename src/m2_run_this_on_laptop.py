@@ -83,7 +83,8 @@ def grid_frames(teleop_frame, drive_system_frame, arm_frame, control_frame, soun
     control_frame.grid(row=3, column=0)
     sound_system_frame.grid(row=0, column=1)
 
-
+def handle_pickup_with_frequency(mqtt_sender, initial_frequency_entry, rate_entry):
+    mqtt_sender.send_message("m2_rate_of_freq", [initial_frequency_entry.get(), rate_entry.get()])
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.

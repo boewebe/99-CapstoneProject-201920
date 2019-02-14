@@ -33,7 +33,7 @@ class RoseBot(object):
         self.sensor_system = SensorSystem()
         self.sound_system = SoundSystem()
         self.led_system = LEDSystem()
-        self.drive_system = DriveSystem(self.sensor_system, self.sound_system, self.arm_and_claw)
+        self.drive_system = DriveSystem(self.sensor_system)
         self.arm_and_claw = ArmAndClaw(self.sensor_system.touch_sensor)
         self.beacon_system = BeaconSystem()
         self.display_system = DisplaySystem()
@@ -328,19 +328,6 @@ class DriveSystem(object):
                 self.stop()
                 break
 
-    def prox_frequency_increase(self, speed, frequency, rate_of_freq_increase):
-
-        self.go(int(speed), int(speed))
-        initial_distance = self.sensor_system.ir_proximity_sensor.get_distance_in_inches()
-        starting_frequency = int(frequency)
-        while True:
-            frequency = starting_frequency + int(rate_of_freq_increase) * ((initial_distance - self.sensor_system.ir_proximity_sensor.get_distance_in_inches()) / self.sensor_system.ir_proximity_sensor.get_distance_in_inches())
-            self.sound_system.tone_maker.play_tone(frequency, 5).wait()
-            time.sleep(0.2)
-            if self.sensor_system.ir_proximity_sensor.get_distance_in_inches() == 2:
-                self.stop()
-                break
-        self.arm_and_claw.raise_arm()
 
 ###############################################################################
 #    ArmAndClaw

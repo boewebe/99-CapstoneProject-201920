@@ -8,7 +8,7 @@
 """
 
 import rosebot
-
+import m2_feature_9 as m2
 
 class ResponderToGUIMessages(object):
     def __init__(self, robot):
@@ -92,5 +92,5 @@ class ResponderToGUIMessages(object):
     def spin_counterclockwise(self, area, speed):
         self.robot.drive_system.spin_counterclockwise_until_sees_object(speed, area)
 
-    def m2_rate_of_freq(self, speed, freq, rate_of_freq):
-        self.robot.drive_system.prox_frequency_increase(speed,freq, rate_of_freq)
+    def m2_rate_of_freq(self,freq, rate_of_freq):
+        m2.run_test_object_pick_up_with_frequency(int(freq), int(rate_of_freq))

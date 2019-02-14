@@ -31,19 +31,7 @@ def connect_to_robot():
         time.sleep(0.01)
 
 
-def prox_frequency_increase(speed, frequency, rate_of_freq_increase):
-    robot = rosebot.RoseBot()
-    robot.drive_system.go(int(speed), int(speed))
-    initial_distance = robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
-    starting_frequency = int(frequency)
-    while True:
-        frequency = starting_frequency + int(rate_of_freq_increase) * ((initial_distance - robot.sensor_system.ir_proximity_sensor.get_distance_in_inches())/robot.sensor_system.ir_proximity_sensor.get_distance_in_inches())
-        robot.sound_system.tone_maker.play_tone(int(frequency), 50).wait()
-        time.sleep(0.2)
-        if robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() == 2:
-            robot.drive_system.stop()
-            break
-    robot.arm_and_claw.raise_arm()
+
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
