@@ -130,6 +130,9 @@ def get_drive_system_frame(window, mqtt_sender):
 
 
 
+
+
+
     blank_line_label = ttk.Label(frame, text="")
     blank_line_label_1 = ttk.Label(frame, text="")
     blank_line_label_2 = ttk.Label(frame, text="")
