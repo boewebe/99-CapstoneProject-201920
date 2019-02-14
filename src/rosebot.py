@@ -70,7 +70,7 @@ class DriveSystem(object):
         self.right_motor = Motor('C')
         self.ir_prox_sensor = InfraredProximitySensor(4)
         self.color_sensor = ColorSensor(3)
-        self.camera = Camera(2)
+        self.camera = Camera('2')
 
         self.wheel_circumference = 1.3 * math.pi
 
@@ -197,12 +197,13 @@ class DriveSystem(object):
         Colors can be integers from 0 to 7 or any of the strings
         listed in the ColorSensor class.
         """
-
+        #self.go(int(speed), int(speed))
+        print(color)
         while True:
-            self.go(int(speed), int(speed))
-
             if type(color) == str:
+                print('true 1')
                 if self.color_sensor.get_color() != color:
+                    print('true 2')
                     self.stop()
                     break
             elif type(color) == int:
