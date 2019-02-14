@@ -59,14 +59,13 @@ class DriveSystem(object):
     #          (i.e., left motor goes at speed -S, right motor at speed S).
     # -------------------------------------------------------------------------
 
-    def __init__(self, sensor_system, sound_system, arm_and_claw):
+    def __init__(self, sensor_system):
         """
         Stores the given SensorSystem object.
         Constructs two Motors (for the left and right wheels).
           :type sensor_system:  SensorSystem
         """
-        self.arm_and_claw = arm_and_claw
-        self.sound_system = sound_system
+
         self.sensor_system = sensor_system
         self.left_motor = Motor('B')
         self.right_motor = Motor('C')
