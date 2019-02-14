@@ -242,13 +242,13 @@ def get_drive_system_2_frame(window, mqtt_sender):
 
     rate_of_freq_label = ttk.Label(frame, text="Frequency Rate")
     rate_of_freq_entry = ttk.Entry(frame, width=8)
-    rate_of_freq_entry.insert(0, "5")
+    rate_of_freq_entry.insert(0, "100")
 
     rate_of_freq_button = ttk.Button(frame, text="Pick Up with Freq Rate")
 
     freq_label = ttk.Label(frame, text="Frequency")
     freq_entry = ttk.Entry(frame, width=8)
-    freq_entry.insert(0, "5")
+    freq_entry.insert(0, "440")
 
     rate_of_beeps_label = ttk.Label(frame, text="Initial Beep Rate")
     rate_of_beeps_entry = ttk.Entry(frame, width=8)
