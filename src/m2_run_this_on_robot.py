@@ -32,12 +32,12 @@ def real_thing():
 
 def prox_frequency_increase(speed, frequency, rate_of_freq_increase):
     robot = rosebot.RoseBot()
-    robot.drive_system.go(speed, speed)
+    robot.drive_system.go(int(speed), int(speed))
     initial_distance = robot.drive_system.ir_prox_sensor.get_distance_in_inches()
-    starting_frequency = frequency
+    starting_frequency = int(frequency)
     while True:
-        frequency = starting_frequency + rate_of_freq_increase * ((initial_distance - robot.drive_system.ir_prox_sensor.get_distance_in_inches())/intital_distance)
-        robot.sound_system.tone_maker.play_tone(frequency, 50).wait()
+        frequency = starting_frequency + int(rate_of_freq_increase) * ((initial_distance - robot.drive_system.ir_prox_sensor.get_distance_in_inches())/robot.drive_system.ir_prox_sensor.get_distance_in_inches())
+        robot.sound_system.tone_maker.play_tone(int(frequency), 50).wait()
         time.sleep(0.2)
         if robot.drive_system.ir_prox_sensor.get_distance_in_inches() == 2:
             robot.drive_system.stop()

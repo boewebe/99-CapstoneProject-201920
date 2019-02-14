@@ -136,8 +136,17 @@ def get_drive_system_frame(window, mqtt_sender):
 
     display_camera_data_button = ttk.Button(frame, text="Display Camera Data")
     spin_clockwise_button = ttk.Button(frame, text="Spin Clockwise")
-    spin_counterclockwise_button =ttk.Button(frame, text="Spin CounterClockwise")
+    spin_counterclockwise_button = ttk.Button(frame, text="Spin CounterClockwise")
 
+    rate_of_freq_label = ttk.Label(frame, text="Area")
+    rate_of_freq_entry = ttk.Entry(frame, width=8)
+    rate_of_freq_entry.insert(0, "5")
+
+    rate_of_freq_button = ttk.Button(frame, text="Tone Increasing")
+
+    freq_label = ttk.Label(frame, text="Frequency")
+    freq_entry = ttk.Entry(frame, width=8)
+    freq_entry.insert(0, "5")
 
 
     blank_line_label = ttk.Label(frame, text="")
@@ -206,6 +215,13 @@ def get_drive_system_frame(window, mqtt_sender):
     spin_clockwise_button.grid(row=22, column=2)
     spin_counterclockwise_button.grid(row=22, column=3)
 
+    rate_of_freq_label.grid(row=23, column=2)
+    rate_of_freq_entry.grid(row=24, column=2)
+    rate_of_freq_button.grid(row=25,column=2)
+
+    freq_label.grid(row=26, column=2)
+    freq_entry.grid(row=27, column=2)
+
 
     # Set the button callbacks:
     seconds_speed["command"] = lambda: handle_seconds_speed(mqtt_sender,
@@ -242,6 +258,9 @@ def get_drive_system_frame(window, mqtt_sender):
         area_entry, speed_entry)
 
 
+
+    rate_of_freq_button["command"] = lambda: handle_rate_of_freq(mqtt_sender,
+        speed_entry, freq_entry, rate_of_freq_entry)
 
 
     return frame
@@ -601,3 +620,10 @@ def handle_spin_counterclockwise(mqtt_sender, area, speed):
     print("Spin Counterclockwise until area", area.get(), "at speed", speed.get())
     print()
     mqtt_sender.send_message("spin_counterclockwise", [area.get(), speed.get()])
+
+
+
+def handle_rate_of_freq(mqtt_sender, speed, freq, rate_of_freq):
+    print("rate of freq: speed", speed.get(), "freq", freq.get(), "rate_of_freq", rate_of_freq.get())
+    print()
+    mqtt_sender.send_message("m2_rate_of_freq", [speed.get(), freq.get(), rate_of_freq.get()])
