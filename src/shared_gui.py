@@ -118,9 +118,24 @@ def get_drive_system_frame(window, mqtt_sender):
     color_is_button = ttk.Button(frame, text="Straight/Color is")
     color_is_not_button = ttk.Button(frame, text="Straight/Color is NOT")
 
+    infrared_label = ttk.Label(frame, text="Infrared Proximity Sensor")
+
+    delta_label = ttk.Label(frame, text="Delta")
+    delta_entry = ttk.Entry(frame, width=8)
+    delta_entry.insert(0, "1")
+
+    forward_less_button = ttk.Button(frame, text="Forward Less")
+    backward_greater_button = ttk.Button(frame, text="Backward Greater")
+    until_distance_within = ttk.Button(frame, text="Until Within")
+
+
+
     blank_line_label = ttk.Label(frame, text="")
     blank_line_label_1 = ttk.Label(frame, text="")
     blank_line_label_2 = ttk.Label(frame, text="")
+    blank_line_label_3 = ttk.Label(frame, text="")
+    blank_line_label_4 = ttk.Label(frame, text="")
+    blank_line_label_5 = ttk.Label(frame, text="")
 
     # Grid the widgets:
     frame_label.grid(row=0, column=2)
@@ -146,6 +161,7 @@ def get_drive_system_frame(window, mqtt_sender):
 
     blank_line_label_1.grid(row=5, column=0)
 
+    # Color System
     color_system_label.grid(row=6, column=2)
     blank_line_label_2.grid(row=7, column=0)
 
@@ -153,6 +169,17 @@ def get_drive_system_frame(window, mqtt_sender):
     intensity_greater_than_button.grid(row=8, column=1)
     color_is_button.grid(row=8, column=2)
     color_is_not_button.grid(row=8, column=3)
+
+    #Infrared Proximity
+    blank_line_label_3.grid(row=9, column=2)
+    infrared_label.grid(row=10, column=2)
+    blank_line_label_4.grid(row=11, column=2)
+    delta_label.grid(row=12, column=2)
+    delta_entry.grid(row=13, column=2)
+    blank_line_label_5.grid(row=14, column=2)
+    forward_less_button.grid(row=15, column=1)
+    backward_greater_button.grid(row=15, column=2)
+    until_distance_within.grid(row=15, column=3)
 
 
 
@@ -163,6 +190,8 @@ def get_drive_system_frame(window, mqtt_sender):
         inches_entry, speed_entry)
     inches_encoder["command"] = lambda: handle_inches_speed_encoder(mqtt_sender,
         inches_entry, speed_entry)
+
+
     intensity_less_than_button["command"] = lambda: handle_intensity_less_than(mqtt_sender,
         intensity_entry, speed_entry)
     intensity_greater_than_button["command"] = lambda: handle_intensity_greater_than(mqtt_sender,
@@ -171,6 +200,14 @@ def get_drive_system_frame(window, mqtt_sender):
         color_entry, speed_entry)
     color_is_not_button["command"] = lambda: handle_until_color_is_not(mqtt_sender,
         color_entry, speed_entry)
+
+
+    forward_less_button["command"] = lambda: handle_forward_less(mqtt_sender,
+        inches_entry, speed_entry)
+    backward_greater_button["command"] = lambda: handle_backward_greater(mqtt_sender,
+        inches_entry, speed_entry)
+    until_distance_within["command"] = lambda: handle_until_distance_within(mqtt_sender,
+        delta_entry, inches_entry, speed_entry)
 
 
 
@@ -496,3 +533,21 @@ def handle_until_color_is_not(mqtt_sender, color, speed):
     print("Speed:", speed.get())
     print()
     mqtt_sender.send_message("until_color_is", [color.get(), speed.get()])
+
+
+
+
+def handle_forward_less(mqtt_sender, inches, speed):
+    print("go forward until distance is less than", inches.get(), "at speed", speed.get())
+    print()
+    mqtt_sender.send_message("forward_less", [inches.get(), speed.get()])
+
+def handle_backward_greater(mqtt_sender, inches, speed):
+    print("go backwards until distance is greater than", inches.get(), "at speed", speed.get())
+    print()
+    mqtt_sender.send_message("backward_greater", [inches.get(), speed.get()])
+
+def handle_until_distance_within(mqtt_sender, delta, inches, speed):
+    print("go until distance is within delta", delta.get(), "of", inches.get(), "inches at speed", speed.get())
+    print()
+    mqtt_sender.send_message("until_within", [delta.get(), inches.get(), speed.get()])

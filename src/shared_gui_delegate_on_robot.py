@@ -72,3 +72,12 @@ class ResponderToGUIMessages(object):
 
     def until_color_is_not(self, color, speed):
         self.robot.drive_system.go_straight_until_color_is_not(color, speed)
+
+    def forward_less(self, inches, speed):
+        self.robot.drive_system.go_forward_until_distance_is_less_than(inches, speed)
+
+    def backward_greater(self, inches, speed):
+        self.robot.drive_system.go_backward_until_distance_is_greater_than(inches, speed)
+
+    def until_within(self, delta, inches, speed):
+        self.robot.drive_system.go_until_distance_is_within(delta, inches, speed)

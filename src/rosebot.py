@@ -287,11 +287,10 @@ class DriveSystem(object):
     # -------------------------------------------------------------------------
     def display_camera_data(self):
         """
-        Displays on the GUI the Blob data of the Blob that the camera sees
+        Displays on the console the Blob data of the Blob that the camera sees
         (if any).
         """
-
-
+        print(self.camera.get_biggest_blob())
 
 
     def spin_clockwise_until_sees_object(self, speed, area):
