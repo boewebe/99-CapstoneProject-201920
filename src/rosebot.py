@@ -69,7 +69,7 @@ class DriveSystem(object):
         self.sensor_system = sensor_system
         self.left_motor = Motor('B')
         self.right_motor = Motor('C')
-        self.color_sensor = ColorSensor(3)
+        #self.color_sensor = ColorSensor(3)
         self.camera = Camera('2')
 
         self.wheel_circumference = 1.3 * math.pi
@@ -144,7 +144,7 @@ class DriveSystem(object):
 
         while True:
             self.go(int(speed), int(speed))
-            if self.color_sensor.get_ambient_light_intensity() < int(intensity):
+            if self.sensor_system.color_sensor.get_ambient_light_intensity() < int(intensity):
                 self.stop()
                 break
 
@@ -157,7 +157,7 @@ class DriveSystem(object):
 
         while True:
             self.go(int(speed), int(speed))
-            if self.color_sensor.get_ambient_light_intensity() > intensity:
+            if self.sensor_system.color_sensor.get_ambient_light_intensity() > intensity:
                 self.stop()
                 break
 
@@ -176,17 +176,17 @@ class DriveSystem(object):
         the color sensor's color.
         """
 
+        self.go(int(speed), int(speed))
         while True:
-            self.go(int(speed), int(speed))
-
+            print(self.sensor_system.color_sensor.get_color_as_name())
             if type(color) == str:
-                if self.color_sensor.get_color() == color:
+                if self.sensor_system.color_sensor.get_color_as_name() == color:
                     self.stop()
                     break
-            elif type(color) == int:
-                if self.color_sensor.get_color_as_name() == color:
-                    self.stop()
-                    break
+           # elif type(color) == int:
+           #     if self.color_sensor.get_color_as_name() == color:
+           #         self.stop()
+           #         break
 
 
     def go_straight_until_color_is_not(self, color, speed):
@@ -202,14 +202,14 @@ class DriveSystem(object):
         while True:
             if type(color) == str:
                 print('true 1')
-                if self.color_sensor.get_color() != color:
+                if self.sensor_system.color_sensor.get_color_as_name() != color:
                     print('true 2')
                     self.stop()
                     break
-            elif type(color) == int:
-                if self.color_sensor.get_color_as_name() != color:
-                    self.stop()
-                    break
+            # elif type(color) == int:
+            #     if self.color_sensor.get_color_as_name() != color:
+            #         self.stop()
+            #         break
 
 
     # -------------------------------------------------------------------------
@@ -257,12 +257,16 @@ class DriveSystem(object):
 
         self.go(speed, speed)
         while True:
-            if self.sensor_system.ir_proximity_sensor.get_distance_in_inches() == (int(inches) - int(delta)):
+            is_less_than_max = self.sensor_system.ir_proximity_sensor.get_distance_in_inches() <= (int(inches) + int(delta))
+            is_greater_than_min = self.sensor_system.ir_proximity_sensor.get_distance_in_inches() >= (int(inches) - int(delta))
+            if is_greater_than_min and is_less_than_max:
                 self.stop()
                 break
-            elif self.sensor_system.ir_proximity_sensor.get_distance_in_inches() == (int(inches) + int(delta)):
-                self.stop()
-                break
+            if not is_less_than_max:
+                self.go(int(speed), int(speed))
+            if not is_greater_than_min:
+                self.go(-int(speed), -int(speed))
+
 
     # -------------------------------------------------------------------------
     # Methods for driving that use the infrared beacon sensor.
@@ -353,11 +357,13 @@ class ArmAndClaw(object):
 
     def raise_arm(self):
         """ Raises the Arm until its touch sensor is pressed. """
+        print("raising arm")
         self.motor.turn_on(100)
         while True:
             if self.touch_sensor.is_pressed():
                 self.motor.turn_off()
                 break
+        print("raised arm")
 
     def calibrate_arm(self):
         """

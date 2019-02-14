@@ -100,5 +100,8 @@ class ResponderToGUIMessages(object):
     def m3_rate_of_beeps(self,initial_beep_rate, rate_of_beep_increase):
         m3.test_increasing_beeps_as_approach(int(initial_beep_rate), int(rate_of_beep_increase))
 
-    def m1_rate_of_leds(self, intital_led_rate, rate_of_led_increase):
+    def m1_rate_of_led(self, intital_led_rate, rate_of_led_increase):
         m1.test_led_pickup(int(intital_led_rate), int(rate_of_led_increase))
+
+    def m1_spin_until_sees_object(self, clock_counter, speed, area):
+        m1.spin_until_sees_object(clock_counter, speed, area)

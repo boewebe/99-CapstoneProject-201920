@@ -128,6 +128,18 @@ def get_drive_system_frame(window, mqtt_sender):
     backward_greater_button = ttk.Button(frame, text="Backward Greater")
     until_distance_within = ttk.Button(frame, text="Until Within")
 
+    area_label = ttk.Label(frame, text="Area")
+    area_entry = ttk.Entry(frame, width=8)
+    area_entry.insert(0, "60")
+
+    clock_counter_label = ttk.Label(frame, text='Clockwise or Counter')
+    clock_counter_entry = ttk.Entry(frame, width=8)
+    clock_counter_entry.insert(0, "1")
+
+    spin_until_sees_object = ttk.Button(frame, text="Spin Till sees object")
+    
+    
+
 
 
 
@@ -188,6 +200,12 @@ def get_drive_system_frame(window, mqtt_sender):
     forward_less_button.grid(row=15, column=1)
     backward_greater_button.grid(row=15, column=2)
     until_distance_within.grid(row=15, column=3)
+    
+    area_label.grid(row=16, column=2)
+    area_entry.grid(row=17, column=2)
+    clock_counter_label.grid(row=18, column=2)
+    clock_counter_entry.grid(row=19, column=2)
+    spin_until_sees_object.grid(row=20, column=2)
 
 
 
@@ -217,6 +235,9 @@ def get_drive_system_frame(window, mqtt_sender):
         inches_entry, speed_entry)
     until_distance_within["command"] = lambda: handle_until_distance_within(mqtt_sender,
         delta_entry, inches_entry, speed_entry)
+
+    spin_until_sees_object["command"] = lambda: handle_spin_until_sees_object(mqtt_sender,
+        clock_counter_entry, speed_entry, area_entry)
 
 
 
@@ -649,7 +670,7 @@ def handle_until_color_is_not(mqtt_sender, color, speed):
     print("Color (Is NOT function):", color.get())
     print("Speed:", speed.get())
     print()
-    mqtt_sender.send_message("until_color_is", [color.get(), speed.get()])
+    mqtt_sender.send_message("until_color_is_not", [color.get(), speed.get()])
 
 
 
@@ -700,3 +721,7 @@ def handle_rate_of_beeps(mqtt_sender, rate_of_beeps_entry, increase_beeps_entry)
 
 def handle_rate_of_led(mqtt_sender, rate_of_led_entry, increase_led_entry):
     mqtt_sender.send_message("m1_rate_of_led", [rate_of_led_entry.get(), increase_led_entry.get()])
+
+def handle_spin_until_sees_object(mqtt_sender, clock_or_counter, speed, area):
+    print("spin until sees object")
+    mqtt_sender.send_message("m1_spin_until_sees_object", [clock_or_counter.get(), speed.get(), area.get()])
