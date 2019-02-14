@@ -68,7 +68,6 @@ class DriveSystem(object):
         self.sensor_system = sensor_system
         self.left_motor = Motor('B')
         self.right_motor = Motor('C')
-        self.ir_prox_sensor = InfraredProximitySensor(4)
         self.color_sensor = ColorSensor(3)
         self.camera = Camera('2')
 
@@ -223,7 +222,9 @@ class DriveSystem(object):
 
         self.go(int(speed), int(speed))
         while True:
-            if self.ir_prox_sensor.get_distance_in_inches() < int(inches):
+            print(self.sensor_system.ir_proximity_sensor.get_distance_in_inches())
+            time.sleep(0.2)
+            if self.sensor_system.ir_proximity_sensor.get_distance_in_inches() < int(inches):
                 self.stop()
                 break
 
@@ -236,7 +237,9 @@ class DriveSystem(object):
 
         self.go(-int(speed), -int(speed))
         while True:
-            if self.ir_prox_sensor.get_distance_in_inches() > int(inches):
+            print(self.sensor_system.ir_proximity_sensor.get_distance_in_inches())
+            time.sleep(0.2)
+            if self.sensor_system.ir_proximity_sensor.get_distance_in_inches() > int(inches):
                 self.stop()
                 break
 
@@ -253,10 +256,10 @@ class DriveSystem(object):
 
         self.go(speed, speed)
         while True:
-            if self.ir_prox_sensor.get_distance_in_inches() == (int(inches) - int(delta)):
+            if self.sensor_system.ir_proximity_sensor.get_distance_in_inches() == (int(inches) - int(delta)):
                 self.stop()
                 break
-            elif self.ir_prox_sensor.get_distance_in_inches() == (int(inches) + int(delta)):
+            elif self.sensor_system.ir_proximity_sensor.get_distance_in_inches() == (int(inches) + int(delta)):
                 self.stop()
                 break
 
@@ -302,7 +305,7 @@ class DriveSystem(object):
         """
 
         while True:
-            self.go(-int(speed), int(speed))
+            self.go(int(speed), -int(speed))
             b = self.camera.get_biggest_blob()
             if (b.width * b.height) >= int(area):
                 self.stop()
@@ -317,7 +320,7 @@ class DriveSystem(object):
         """
 
         while True:
-            self.go(int(speed), -int(speed))
+            self.go(-int(speed), int(speed))
             b = self.camera.get_biggest_blob()
             if (b.width * b.height) >= int(area):
                 self.stop()

@@ -91,7 +91,7 @@ def get_drive_system_frame(window, mqtt_sender):
     entry_label_5 =  ttk.Label(frame, text="Enter Intensity")
 
     speed_entry = ttk.Entry(frame, width=8)
-    speed_entry.insert(0, "100")
+    speed_entry.insert(0, "50")
     seconds_entry = ttk.Entry(frame, width=8)
     seconds_entry.insert(0, "5")
     inches_entry = ttk.Entry(frame, width=8)
