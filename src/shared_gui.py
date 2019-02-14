@@ -148,6 +148,22 @@ def get_drive_system_frame(window, mqtt_sender):
     freq_entry = ttk.Entry(frame, width=8)
     freq_entry.insert(0, "5")
 
+    rate_of_beeps_label = ttk.Label(frame, text="Initail Beep Rate")
+    rate_of_beeps_entry = ttk.Entry(frame, width=8)
+    rate_of_beeps_entry.insert(0, "5")
+
+    rate_of_beeps_button = ttk.Button(frame, text="Increasing Beep Rate")
+
+    increase_beeps_label = ttk.Label(frame, text="Frequency")
+    increase_beeps_entry = ttk.Entry(frame, width=8)
+    increase_beeps_entry.insert(0, "5")
+
+
+
+
+
+
+
 
     blank_line_label = ttk.Label(frame, text="")
     blank_line_label_1 = ttk.Label(frame, text="")
@@ -222,6 +238,13 @@ def get_drive_system_frame(window, mqtt_sender):
     freq_label.grid(row=26, column=2)
     freq_entry.grid(row=27, column=2)
 
+    rate_of_beeps_label.grid(row=28, column=2)
+    rate_of_beeps_entry.grid(row=29, column=2)
+    rate_of_beeps_button.grid(row=30, column=2)
+
+    increase_beeps_label.grid(row=31, column=2)
+    increase_beeps_entry.grid(row=32, column=2)
+
 
     # Set the button callbacks:
     seconds_speed["command"] = lambda: handle_seconds_speed(mqtt_sender,
@@ -260,7 +283,7 @@ def get_drive_system_frame(window, mqtt_sender):
 
 
     rate_of_freq_button["command"] = lambda: handle_rate_of_freq(mqtt_sender, freq_entry, rate_of_freq_entry)
-
+    rate_of_beeps_button["command"] = lambda: handle_rate_of_beeps(mqtt_sender, rate_of_beeps_entry, increase_beeps_entry)
 
     return frame
 
@@ -626,3 +649,8 @@ def handle_rate_of_freq(mqtt_sender, initial_frequency_entry, rate_entry):
           int(rate_entry.get()))
 
     mqtt_sender.send_message("m2_rate_of_freq", [initial_frequency_entry.get(), rate_entry.get()])
+
+def handle_rate_of_beeps(mqtt_sender, rate_of_beeps_entry, increase_beeps_entry):
+    print("we need to change this later... rn its 1 am")
+
+    mqtt_sender.send_message("m3_rate_of_beeps", [rate_of_beeps_entry.get(),increase_beeps_entry.get()])

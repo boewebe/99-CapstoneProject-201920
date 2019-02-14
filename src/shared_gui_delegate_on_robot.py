@@ -9,6 +9,7 @@
 
 import rosebot
 import m2_feature_9 as m2
+import m3_feature_9 as m3
 
 class ResponderToGUIMessages(object):
     def __init__(self, robot):
@@ -94,3 +95,6 @@ class ResponderToGUIMessages(object):
 
     def m2_rate_of_freq(self,freq, rate_of_freq):
         m2.run_test_object_pick_up_with_frequency(int(freq), int(rate_of_freq))
+
+    def m3_rate_of_beeps(self,initial_beep_rate, rate_of_beep_increase):
+        m3.test_increasing_beeps_as_approach(int(initial_beep_rate), int(rate_of_beep_increase))
