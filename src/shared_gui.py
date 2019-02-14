@@ -128,35 +128,6 @@ def get_drive_system_frame(window, mqtt_sender):
     backward_greater_button = ttk.Button(frame, text="Backward Greater")
     until_distance_within = ttk.Button(frame, text="Until Within")
 
-    camera_label = ttk.Label(frame, text="Camera Drive System Functions")
-
-    area_label =ttk.Label(frame, text="Area")
-    area_entry = ttk.Entry(frame, width=8)
-    area_entry.insert(0, "5")
-
-    display_camera_data_button = ttk.Button(frame, text="Display Camera Data")
-    spin_clockwise_button = ttk.Button(frame, text="Spin Clockwise")
-    spin_counterclockwise_button = ttk.Button(frame, text="Spin CounterClockwise")
-
-    rate_of_freq_label = ttk.Label(frame, text="Frequency Rate")
-    rate_of_freq_entry = ttk.Entry(frame, width=8)
-    rate_of_freq_entry.insert(0, "5")
-
-    rate_of_freq_button = ttk.Button(frame, text="Tone Increasing")
-
-    freq_label = ttk.Label(frame, text="Frequency")
-    freq_entry = ttk.Entry(frame, width=8)
-    freq_entry.insert(0, "5")
-
-    rate_of_beeps_label = ttk.Label(frame, text="Initail Beep Rate")
-    rate_of_beeps_entry = ttk.Entry(frame, width=8)
-    rate_of_beeps_entry.insert(0, "5")
-
-    rate_of_beeps_button = ttk.Button(frame, text="Increasing Beep Rate")
-
-    increase_beeps_label = ttk.Label(frame, text="Frequency")
-    increase_beeps_entry = ttk.Entry(frame, width=8)
-    increase_beeps_entry.insert(0, "5")
 
 
 
@@ -172,9 +143,7 @@ def get_drive_system_frame(window, mqtt_sender):
     blank_line_label_4 = ttk.Label(frame, text="")
     blank_line_label_5 = ttk.Label(frame, text="")
 
-    blank_line_label_6 = ttk.Label(frame, text="")
-    blank_line_label_7 = ttk.Label(frame, text="")
-    blank_line_label_8 = ttk.Label(frame, text="")
+
 
     # Grid the widgets:
     frame_label.grid(row=0, column=2)
@@ -220,30 +189,7 @@ def get_drive_system_frame(window, mqtt_sender):
     backward_greater_button.grid(row=15, column=2)
     until_distance_within.grid(row=15, column=3)
 
-    #Camera
-    blank_line_label_6.grid(row=16, column=3)
-    camera_label.grid(row=17, column=2)
-    blank_line_label_7.grid(row=18, column=3)
-    area_label.grid(row=19, column=2)
-    area_entry.grid(row=20, column=2)
-    blank_line_label_8.grid(row=21, column=2)
-    display_camera_data_button.grid(row=22, column=1)
-    spin_clockwise_button.grid(row=22, column=2)
-    spin_counterclockwise_button.grid(row=22, column=3)
 
-    rate_of_freq_label.grid(row=23, column=2)
-    rate_of_freq_entry.grid(row=24, column=2)
-    rate_of_freq_button.grid(row=25,column=2)
-
-    freq_label.grid(row=26, column=2)
-    freq_entry.grid(row=27, column=2)
-
-    rate_of_beeps_label.grid(row=28, column=2)
-    rate_of_beeps_entry.grid(row=29, column=2)
-    rate_of_beeps_button.grid(row=30, column=2)
-
-    increase_beeps_label.grid(row=31, column=2)
-    increase_beeps_entry.grid(row=32, column=2)
 
 
     # Set the button callbacks:
@@ -274,19 +220,98 @@ def get_drive_system_frame(window, mqtt_sender):
 
 
 
-    display_camera_data_button["command"] = lambda: handle_display_camera_data(mqtt_sender)
-    spin_clockwise_button["command"] = lambda: handle_spin_clockwise(mqtt_sender,
-        area_entry, speed_entry)
-    spin_counterclockwise_button["command"] = lambda: handle_spin_counterclockwise(mqtt_sender,
-        area_entry, speed_entry)
 
-
-
-    rate_of_freq_button["command"] = lambda: handle_rate_of_freq(mqtt_sender, freq_entry, rate_of_freq_entry)
-    rate_of_beeps_button["command"] = lambda: handle_rate_of_beeps(mqtt_sender, rate_of_beeps_entry, increase_beeps_entry)
 
     return frame
 
+def get_drive_system_2_frame(window, mqtt_sender):
+
+    # Construct the frame to return:
+    frame = ttk.Frame(window, padding=10, borderwidth=5, relief="ridge")
+    frame.grid()
+
+    camera_label = ttk.Label(frame, text="Camera Drive System Functions")
+
+    area_label =ttk.Label(frame, text="Area")
+    area_entry = ttk.Entry(frame, width=8)
+    area_entry.insert(0, "5")
+
+    display_camera_data_button = ttk.Button(frame, text="Display Camera Data")
+    spin_clockwise_button = ttk.Button(frame, text="Spin Clockwise")
+    spin_counterclockwise_button = ttk.Button(frame, text="Spin CounterClockwise")
+
+    rate_of_freq_label = ttk.Label(frame, text="Frequency Rate")
+    rate_of_freq_entry = ttk.Entry(frame, width=8)
+    rate_of_freq_entry.insert(0, "5")
+
+    rate_of_freq_button = ttk.Button(frame, text="Pick Up with Freq Rate")
+
+    freq_label = ttk.Label(frame, text="Frequency")
+    freq_entry = ttk.Entry(frame, width=8)
+    freq_entry.insert(0, "5")
+
+    rate_of_beeps_label = ttk.Label(frame, text="Initial Beep Rate")
+    rate_of_beeps_entry = ttk.Entry(frame, width=8)
+    rate_of_beeps_entry.insert(0, "5")
+
+    rate_of_beeps_button = ttk.Button(frame, text="Pick Up with Beep Rate")
+
+    increase_beeps_label = ttk.Label(frame, text="Increasing Beep Rate")
+    increase_beeps_entry = ttk.Entry(frame, width=8)
+    increase_beeps_entry.insert(0, "5")
+
+    #blank_line_label_6 = ttk.Label(frame, text="")
+    blank_line_label_7 = ttk.Label(frame, text="")
+    blank_line_label_8 = ttk.Label(frame, text="")
+
+    speed_entry_label = ttk.Label(frame, text="Speed")
+    speed_entry = ttk.Entry(frame, width=8)
+    speed_entry.insert(0, "50")
+
+
+
+    #Camera
+    #blank_line_label_6.grid(row=1, column=3)
+    camera_label.grid(row=1, column=1)
+    #blank_line_label_7.grid(row=18, column=3)
+    area_label.grid(row=2, column=1)
+    area_entry.grid(row=3, column=1)
+    blank_line_label_8.grid(row=4, column=2)
+    display_camera_data_button.grid(row=5, column=0)
+    spin_clockwise_button.grid(row=5, column=1)
+    spin_counterclockwise_button.grid(row=5, column=2)
+
+    rate_of_freq_label.grid(row=6, column=1)
+    rate_of_freq_entry.grid(row=7, column=1)
+    rate_of_freq_button.grid(row=8,column=1)
+
+    freq_label.grid(row=9, column=1)
+    freq_entry.grid(row=10, column=1)
+
+    rate_of_beeps_label.grid(row=11, column=1)
+    rate_of_beeps_entry.grid(row=12, column=1)
+    rate_of_beeps_button.grid(row=13, column=1)
+
+    increase_beeps_label.grid(row=14, column=1)
+    increase_beeps_entry.grid(row=15, column=1)
+
+    blank_line_label_7.grid(row=16, column=1)
+    speed_entry_label.grid(row=17, column=1)
+    speed_entry.grid(row=18, column=1)
+
+
+
+    display_camera_data_button["command"] = lambda: handle_display_camera_data(mqtt_sender)
+    spin_clockwise_button["command"] = lambda: handle_spin_clockwise(mqtt_sender,
+                                                                     area_entry, speed_entry)
+    spin_counterclockwise_button["command"] = lambda: handle_spin_counterclockwise(mqtt_sender,
+                                                                                   area_entry, speed_entry)
+
+    rate_of_freq_button["command"] = lambda: handle_rate_of_freq(mqtt_sender, freq_entry, rate_of_freq_entry)
+    rate_of_beeps_button["command"] = lambda: handle_rate_of_beeps(mqtt_sender, rate_of_beeps_entry,
+                                                                   increase_beeps_entry)
+
+    return frame
 
 
 def get_arm_frame(window, mqtt_sender):
