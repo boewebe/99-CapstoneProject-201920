@@ -197,7 +197,7 @@ class DriveSystem(object):
         Colors can be integers from 0 to 7 or any of the strings
         listed in the ColorSensor class.
         """
-        #self.go(int(speed), int(speed))
+        self.go(int(speed), int(speed))
         print(color)
         while True:
             if type(color) == str:
