@@ -24,18 +24,22 @@ what direction is the farthest using the IR sensor and goes until that direction
 then it turns 90 degrees to the left and 90 degrees to the right, recording the maximum distance of the IR sensor on each side
 It turns back to whatever distance is the farthest, and then goes in that direction until that direction is again minimized.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 """
+import rosebot
+import time
 
+def increasing_beeps_as_approach(speed, initial_beep_rate, rate_of_beep_increase):
+    robot = rosebot.RoseBot()
+    initial_distance = robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+    robot.drive_system.go(speed, speed)
+    initial_beep_rate = int(initial_beep_rate)
+    rate_of_beep_increase = int(rate_of_beep_increase)
+
+    while True:
+        percent_distance = (initial_distance - robot.sensor_system.ir_proximity_sensor.get_distance_in_inches())
+        pause_time = (percent_distance) / ((initial_beep_rate) + ((rate_of_beep_increase) * (1/10)*(100 - percent_distance)))
+        robot.sound_system.beeper.beep().wait()
+        time.sleep(pause_time)
+        if robot.sensor_system.ir_proximity_sensor.get_distance_in_inches() <=2:
+            robot.drive_system.stop()
+            break
