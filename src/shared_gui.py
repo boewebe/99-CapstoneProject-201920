@@ -138,7 +138,7 @@ def get_drive_system_frame(window, mqtt_sender):
     spin_clockwise_button = ttk.Button(frame, text="Spin Clockwise")
     spin_counterclockwise_button = ttk.Button(frame, text="Spin CounterClockwise")
 
-    rate_of_freq_label = ttk.Label(frame, text="Area")
+    rate_of_freq_label = ttk.Label(frame, text="Frequency Rate")
     rate_of_freq_entry = ttk.Entry(frame, width=8)
     rate_of_freq_entry.insert(0, "5")
 
@@ -259,8 +259,7 @@ def get_drive_system_frame(window, mqtt_sender):
 
 
 
-    rate_of_freq_button["command"] = lambda: handle_rate_of_freq(mqtt_sender,
-        speed_entry, freq_entry, rate_of_freq_entry)
+    rate_of_freq_button["command"] = lambda: handle_rate_of_freq(mqtt_sender, freq_entry, rate_of_freq_entry)
 
 
     return frame
@@ -621,9 +620,9 @@ def handle_spin_counterclockwise(mqtt_sender, area, speed):
     print()
     mqtt_sender.send_message("spin_counterclockwise", [area.get(), speed.get()])
 
+def handle_rate_of_freq(mqtt_sender, initial_frequency_entry, rate_entry):
+    print("Picking up with tones.", "Starting tone at max distance:", int(initial_frequency_entry.get()),
+          "Rate of increase:",
+          int(rate_entry.get()))
 
-
-def handle_rate_of_freq(mqtt_sender, speed, freq, rate_of_freq):
-    print("rate of freq: speed", speed.get(), "freq", freq.get(), "rate_of_freq", rate_of_freq.get())
-    print()
-    mqtt_sender.send_message("m2_rate_of_freq", [speed.get(), freq.get(), rate_of_freq.get()])
+    mqtt_sender.send_message("m2_rate_of_freq", [initial_frequency_entry.get(), rate_entry.get()])
