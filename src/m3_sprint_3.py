@@ -1,3 +1,2 @@
-# Sprint 3: Mars Bot, Opportunity pt.2
+# Sprint 3:
 
-class

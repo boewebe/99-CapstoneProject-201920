@@ -268,6 +268,15 @@ def get_drive_system_2_frame(window, mqtt_sender):
     speed_entry = ttk.Entry(frame, width=8)
     speed_entry.insert(0, "50")
 
+    rate_of_led_label = ttk.Label(frame, text="Initial led Rate")
+    rate_of_led_entry = ttk.Entry(frame, width=8)
+    rate_of_led_entry.insert(0, "5")
+    rate_of_led_button = ttk.Button(frame, text="LED button")
+
+    increase_led_label = ttk.Label(frame, text="Increasing led Rate")
+    increase_led_entry = ttk.Entry(frame, width=8)
+
+
 
 
     #Camera
@@ -299,6 +308,12 @@ def get_drive_system_2_frame(window, mqtt_sender):
     speed_entry_label.grid(row=17, column=1)
     speed_entry.grid(row=18, column=1)
 
+    rate_of_led_label.grid(row=19, column=1)
+    rate_of_led_entry.grid(row=20, column=1)
+    rate_of_led_button.grid(row=21, column=1)
+
+    increase_led_label.grid(row=22, column=1)
+    increase_led_entry.grid(row=23, column=1)
 
 
     display_camera_data_button["command"] = lambda: handle_display_camera_data(mqtt_sender)
@@ -310,6 +325,9 @@ def get_drive_system_2_frame(window, mqtt_sender):
     rate_of_freq_button["command"] = lambda: handle_rate_of_freq(mqtt_sender, freq_entry, rate_of_freq_entry)
     rate_of_beeps_button["command"] = lambda: handle_rate_of_beeps(mqtt_sender, rate_of_beeps_entry,
                                                                    increase_beeps_entry)
+
+    rate_of_led_button["command"] = lambda: handle_rate_of_led(mqtt_sender, rate_of_led_entry,
+                                                                   increase_led_entry)
 
     return frame
 
@@ -679,3 +697,6 @@ def handle_rate_of_beeps(mqtt_sender, rate_of_beeps_entry, increase_beeps_entry)
     print("we need to change this later... rn its 1 am")
 
     mqtt_sender.send_message("m3_rate_of_beeps", [rate_of_beeps_entry.get(),increase_beeps_entry.get()])
+
+def handle_rate_of_led(mqtt_sender, rate_of_led_entry, increase_led_entry):
+    mqtt_sender.send_message("m1_rate_of_led", [rate_of_led_entry.get(), increase_led_entry.get()])
