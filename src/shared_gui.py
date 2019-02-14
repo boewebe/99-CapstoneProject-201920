@@ -128,8 +128,15 @@ def get_drive_system_frame(window, mqtt_sender):
     backward_greater_button = ttk.Button(frame, text="Backward Greater")
     until_distance_within = ttk.Button(frame, text="Until Within")
 
+    camera_label = ttk.Label(frame, text="Camera Drive System Functions")
 
+    area_label =ttk.Label(frame, text="Area")
+    area_entry = ttk.Entry(frame, width=8)
+    area_entry.insert(0, "5")
 
+    display_camera_data_button = ttk.Button(frame, text="Display Camera Data")
+    spin_clockwise_button = ttk.Button(frame, text="Spin Clockwise")
+    spin_counterclockwise_button =ttk.Button(frame, text="Spin CounterClockwise")
 
 
 
@@ -139,6 +146,10 @@ def get_drive_system_frame(window, mqtt_sender):
     blank_line_label_3 = ttk.Label(frame, text="")
     blank_line_label_4 = ttk.Label(frame, text="")
     blank_line_label_5 = ttk.Label(frame, text="")
+
+    blank_line_label_6 = ttk.Label(frame, text="")
+    blank_line_label_7 = ttk.Label(frame, text="")
+    blank_line_label_8 = ttk.Label(frame, text="")
 
     # Grid the widgets:
     frame_label.grid(row=0, column=2)
@@ -184,6 +195,16 @@ def get_drive_system_frame(window, mqtt_sender):
     backward_greater_button.grid(row=15, column=2)
     until_distance_within.grid(row=15, column=3)
 
+    #Camera
+    blank_line_label_6.grid(row=16, column=3)
+    camera_label.grid(row=17, column=2)
+    blank_line_label_7.grid(row=18, column=3)
+    area_label.grid(row=19, column=2)
+    area_entry.grid(row=20, column=2)
+    blank_line_label_8.grid(row=21, column=2)
+    display_camera_data_button.grid(row=22, column=1)
+    spin_clockwise_button.grid(row=22, column=2)
+    spin_counterclockwise_button.grid(row=22, column=3)
 
 
     # Set the button callbacks:
@@ -211,6 +232,15 @@ def get_drive_system_frame(window, mqtt_sender):
         inches_entry, speed_entry)
     until_distance_within["command"] = lambda: handle_until_distance_within(mqtt_sender,
         delta_entry, inches_entry, speed_entry)
+
+
+
+    display_camera_data_button["command"] = lambda: handle_display_camera_data(mqtt_sender)
+    spin_clockwise_button["command"] = lambda: handle_spin_clockwise(mqtt_sender,
+        area_entry, speed_entry)
+    spin_counterclockwise_button["command"] = lambda: handle_spin_counterclockwise(mqtt_sender,
+        area_entry, speed_entry)
+
 
 
 
@@ -554,3 +584,20 @@ def handle_until_distance_within(mqtt_sender, delta, inches, speed):
     print("go until distance is within delta", delta.get(), "of", inches.get(), "inches at speed", speed.get())
     print()
     mqtt_sender.send_message("until_within", [delta.get(), inches.get(), speed.get()])
+
+
+
+def handle_display_camera_data(mqtt_sender):
+    print("Display Camera Data")
+    print()
+    mqtt_sender.send_message("display_camera_data")
+
+def handle_spin_clockwise(mqtt_sender, area, speed):
+    print("Spin Clockwise until area", area.get(), "at speed", speed.get())
+    print()
+    mqtt_sender.send_message("spin_clockwise", [area.get(), speed.get()])
+
+def handle_spin_counterclockwise(mqtt_sender, area, speed):
+    print("Spin Counterclockwise until area", area.get(), "at speed", speed.get())
+    print()
+    mqtt_sender.send_message("spin_counterclockwise", [area.get(), speed.get()])

@@ -81,3 +81,12 @@ class ResponderToGUIMessages(object):
 
     def until_within(self, delta, inches, speed):
         self.robot.drive_system.go_until_distance_is_within(delta, inches, speed)
+
+    def display_camera_data(self):
+        self.robot.drive_system.display_camera_data()
+
+    def spin_clockwise(self, area, speed):
+        self.robot.drive_system.spin_clockwise_until_sees_object(speed, area)
+
+    def spin_counterclockwise(self, area, speed):
+        self.robot.drive_system.spin_counterclockwise_until_sees_object(speed, area)
