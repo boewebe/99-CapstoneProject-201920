@@ -8,7 +8,7 @@
 """
 
 import rosebot
-import m2_run_this_on_robot
+
 
 class ResponderToGUIMessages(object):
     def __init__(self, robot):
@@ -17,7 +17,6 @@ class ResponderToGUIMessages(object):
         :type robot: rosebot.RoseBot
         """
         self.robot = robot
-        self.m2_run_this_on_robot = m2_run_this_on_robot
         self.stop_program = False
 
     def go(self, left_wheel_speed, right_wheel_speed):
@@ -94,4 +93,4 @@ class ResponderToGUIMessages(object):
         self.robot.drive_system.spin_counterclockwise_until_sees_object(speed, area)
 
     def m2_rate_of_freq(self, speed, freq, rate_of_freq):
-        self.m2_run_this_on_robot.prox_frequency_increase(speed, freq, rate_of_freq)
+        self.robot.drive_system.prox_frequency_increase(speed,freq, rate_of_freq)
