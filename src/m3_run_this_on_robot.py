@@ -19,6 +19,24 @@ def main():
     #run_test_of_functions()
     connect_to_robot()
 
+
+def increasing_beeps_as_approach(speed):
+    robot = rosebot.RoseBot()
+    beeps_per_second_max = 8
+    initial_distance = robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
+    robot.drive_system.go(speed, speed)
+
+    while True:
+        delay_between_beeps = ((initial_distance - robot.sensor_system.ir_proximity_sensor.get_distance_in_inches())/(initial_distance))/(beeps_per_second_max)
+        robot.sound_system.beeper.beep().wait()
+        time.sleep(delay_between_beeps)
+        if int(robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()) <= 2
+            break
+
+
+
+
+
 def run_test_of_functions():
     robot = rosebot.RoseBot()
     robot.drive_system.go(100,100)
