@@ -720,6 +720,7 @@ def handle_rate_of_beeps(mqtt_sender, rate_of_beeps_entry, increase_beeps_entry)
     mqtt_sender.send_message("m3_rate_of_beeps", [rate_of_beeps_entry.get(),increase_beeps_entry.get()])
 
 def handle_rate_of_led(mqtt_sender, rate_of_led_entry, increase_led_entry):
+    print('Picking up with LEDs at rate')
     mqtt_sender.send_message("m1_rate_of_led", [rate_of_led_entry.get(), increase_led_entry.get()])
 
 def handle_spin_until_sees_object(mqtt_sender, clock_or_counter, speed, area):

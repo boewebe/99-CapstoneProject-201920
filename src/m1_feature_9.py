@@ -10,7 +10,7 @@ def test_led_pickup(initial_led_rate, rate_of_led_increase):
 
     while True:
         percent_distance = (initial_distance - robot.sensor_system.ir_proximity_sensor.get_distance_in_inches())
-        pause_time = (percent_distance) / (
+        pause_time = (percent_distance) /(
                     (initial_led_rate) + ((rate_of_led_increase) * (1 / 10) * (100 - percent_distance)))
         led_sequecne()
         print(robot.sensor_system.ir_proximity_sensor.get_distance_in_inches())
