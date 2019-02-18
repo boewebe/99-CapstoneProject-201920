@@ -2,7 +2,7 @@ import time
 import rosebot
 
 
-def test_increasing_beeps_as_approach(initial_beep_rate, rate_of_beep_increase):
+def test_increasing_beeps_a1s_approach(initial_beep_rate, rate_of_beep_increase):
     robot = rosebot.RoseBot()
     initial_distance = robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
 
