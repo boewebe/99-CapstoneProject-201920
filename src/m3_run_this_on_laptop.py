@@ -30,7 +30,9 @@ def main():
     # The root TK object for the GUI:
     # -------------------------------------------------------------------------
     root = tkinter.Tk()
+    root2 = tkinter.Tk()
     root.title('Robot, Colin Browne')
+    root2.title('Title 2')
 
     # -------------------------------------------------------------------------
     # The main frame, upon which the other frames are placed.
@@ -41,7 +43,7 @@ def main():
     # -------------------------------------------------------------------------
     # Sub-frames for the shared GUI that the team developed:
     # -------------------------------------------------------------------------
-    teleop_frame, drive_system_frame, arm_frame, control_frame, sound_system_frame = get_shared_frames(main_frame,
+    teleop_frame, drive_system_frame, drive_system_2_frame, arm_frame, control_frame, sound_system_frame = get_shared_frames(main_frame,
                                                                                                        mqtt_sender)
 
     # -------------------------------------------------------------------------
@@ -52,7 +54,7 @@ def main():
     # -------------------------------------------------------------------------
     # Grid the frames.
     # -------------------------------------------------------------------------
-    grid_frames(teleop_frame, drive_system_frame, arm_frame, control_frame, sound_system_frame)
+    grid_frames(teleop_frame, drive_system_frame, drive_system_2_frame, arm_frame, control_frame, sound_system_frame)
 
     # -------------------------------------------------------------------------
     # The event loop:
@@ -66,16 +68,19 @@ def get_shared_frames(main_frame, mqtt_sender):
     arm_frame = shared_gui.get_arm_frame(main_frame, mqtt_sender)
     control_frame = shared_gui.get_control_frame(main_frame, mqtt_sender)
     sound_system_frame = shared_gui.get_sound_system_frame(main_frame, mqtt_sender)
+    drive_system_2_frame = shared_gui.get_drive_system_2_frame(main_frame,mqtt_sender)
 
-    return teleop_frame, drive_system_frame, arm_frame, control_frame, sound_system_frame
+    return teleop_frame, drive_system_frame, drive_system_2_frame, arm_frame, control_frame, sound_system_frame
 
-
-def grid_frames(teleop_frame, drive_system_frame, arm_frame, control_frame, sound_system_frame):
-    teleop_frame.grid(row=1, column=0)
+def grid_frames(teleop_frame, drive_system_frame, drive_system_2_frame, arm_frame, control_frame, sound_system_frame):
+    teleop_frame.grid(row=1, column=2)
     drive_system_frame.grid(row=0, column=0)
-    arm_frame.grid(row=2, column=0)
-    control_frame.grid(row=3, column=0)
+    drive_system_2_frame.grid(row=0, column=2)
+    arm_frame.grid(row=1, column=0)
+    control_frame.grid(row=1, column=1)
     sound_system_frame.grid(row=0, column=1)
+
+
 
 
 # -----------------------------------------------------------------------------
