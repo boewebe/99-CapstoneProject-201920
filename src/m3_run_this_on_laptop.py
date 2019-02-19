@@ -29,16 +29,20 @@ def main():
     # -------------------------------------------------------------------------
     # The root TK object for the GUI:
     # -------------------------------------------------------------------------
-    root = tkinter.Tk()
-    root2 = tkinter.Tk()
-    root.title('Robot, Colin Browne')
-    root2.title('Title 2')
+  #  root = tkinter.Tk()
+    #root2 = tkinter.Tk()
+  #  root.title('Robot, Colin Browne')
+    #root2.title('Welcome Frame')
 
     # -------------------------------------------------------------------------
     # The main frame, upon which the other frames are placed.
     # -------------------------------------------------------------------------
-    main_frame = ttk.Frame(root, padding=10, borderwidth=5, relief='groove')
-    main_frame.grid()
+  #  main_frame = ttk.Frame(root, padding=10, borderwidth=5, relief='groove')
+  #  main_frame.grid()
+
+ #   welcome_frame = ttk.Frame(root2, padding = 10, borderwidth = 5, relief = 'groove')
+  #  welcome_frame.grid
+
 
     # -------------------------------------------------------------------------
     # Sub-frames for the shared GUI that the team developed:
@@ -59,7 +63,7 @@ def main():
     # -------------------------------------------------------------------------
     # The event loop:
     # -------------------------------------------------------------------------
-    root.mainloop()
+ #   root.mainloop()
 
 
 def get_shared_frames(main_frame, mqtt_sender):
@@ -86,4 +90,4 @@ def grid_frames(teleop_frame, drive_system_frame, drive_system_2_frame, arm_fram
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
 # -----------------------------------------------------------------------------
-main()
+# main()
