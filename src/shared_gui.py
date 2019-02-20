@@ -222,11 +222,11 @@ def get_drive_system_frame(window, mqtt_sender):
     intensity_less_than_button["command"] = lambda: handle_intensity_less_than(mqtt_sender,
         intensity_entry, speed_entry)
     intensity_greater_than_button["command"] = lambda: handle_intensity_greater_than(mqtt_sender,
-        intensity_entry, speed_entry)
+        intensity_entry, speed_entry)color_is_not_button["command"] = lambda: handle_until_color_is_not(mqtt_sender,
+        color_entry, speed_entry)
     color_is_button["command"] = lambda: handle_until_color_is(mqtt_sender,
         color_entry, speed_entry)
-    color_is_not_button["command"] = lambda: handle_until_color_is_not(mqtt_sender,
-        color_entry, speed_entry)
+
 
 
     forward_less_button["command"] = lambda: handle_forward_less(mqtt_sender,

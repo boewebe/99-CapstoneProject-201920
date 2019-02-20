@@ -102,3 +102,14 @@ class ResponderToGUIMessages(object):
 
     def m1_rate_of_leds(self, intital_led_rate, rate_of_led_increase):
         m1.test_led_pickup(int(intital_led_rate), int(rate_of_led_increase))
+
+    def m1_sprint_3_Color(self, mqtt_sender, root, canvas, note_head_start):
+        color = self.robot.sensor_system.color_sensor.get_color_as_name()
+        print(color)
+
+        if color == 'Red':
+            note_head_start = A4_note(mqtt_sender, root, canvas, note_head_start)
+
+        if color == 'Black':
+            note_head_start = B4_note(mqtt_sender, root, canvas, note_head_start)
+
