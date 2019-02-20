@@ -11,7 +11,7 @@ import rosebot
 import m2_feature_9 as m2
 import m3_feature_9 as m3
 import m1_feature_9 as m1
-import m1_sprint_3 as m1_3
+import m1_sprint_3_extra as m1_3
 
 class ResponderToGUIMessages(object):
     def __init__(self, robot):

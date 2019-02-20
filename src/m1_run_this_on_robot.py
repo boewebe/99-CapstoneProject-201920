@@ -26,10 +26,6 @@ def real_thing():
     mqtt_receiver = com.MqttClient(delegate)
     mqtt_receiver.connect_to_pc()
 
-    mqtt_sender = com.MqttClient()
-    mqtt_sender.connect_to_pc()
-
-
     while True:
         if delegate.stop_program:
             break
