@@ -11,7 +11,7 @@ import tkinter as tk
 from tkinter import font as tkfont
 import mqtt_remote_method_calls as com
 from tkinter import ttk
-
+import mqtt_remote_method_calls
 import shared_gui
 
 
@@ -34,6 +34,10 @@ def grid_frames(teleop_frame, drive_system_frame, drive_system_2_frame, arm_fram
     sound_system_frame.grid(row=1, column=1)
 
 
+def handle_note_sender_to_robot(mqtt_sender, frequency, duration):
+    print('sending note, ', frequency, 'hertz')
+    mqtt_sender.send_message('play_tone', [frequency, duration])
+
 mqtt_sender = com.MqttClient()
 # mqtt_sender.connect_to_ev3()
 
@@ -46,10 +50,14 @@ class SampleApp(tk.Tk):
     mqtt_sender = com.MqttClient()
     mqtt_sender.connect_to_ev3()
 
+
+
     def __init__(self, *args, **kwargs):
         tk.Tk.__init__(self, *args, **kwargs)
         self.title('Main Menu')
         self.title_font = tkfont.Font(family='Helvetica', size=18, weight="bold", slant="italic")
+
+      #  self.publish_topic_name = mqtt_sender.publish_topic_name
 
         # the container is where we'll stack a bunch of frames
         # on top of each other, then the one we want visible
@@ -104,16 +112,18 @@ class PageOne(tk.Frame):
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
+
+        self.publish_topic_name = mqtt_sender.connect_to_ev3()
+
         self.controller = controller
         label = tk.Label(self, text="This is page 1", font=controller.title_font)
         label.pack(side="top", fill="x", pady=10)
         button = tk.Button(self, text="Return to the start page",
                            command=lambda: controller.show_frame("StartPage"))
         button.pack()
-        #key1 = tk.Button(self, text='C4', command=lambda: note_sender_to_robot)
+        key1 = tk.Button(self, text='C4', command=lambda: handle_note_sender_to_robot(mqtt_sender, 440, 1))
+        key1.pack()
 
-        #def note_sender_to_robot(mqtt_sender, frequency, duration):
-          #  pass
 
 
 class PageTwo(tk.Frame):
@@ -121,6 +131,8 @@ class PageTwo(tk.Frame):
     def __init__(self, parent, controller):
 
         tk.Frame.__init__(self, parent)
+
+        self.publish_topic_name = mqtt_sender.connect_to_ev3()
 
         teleop_frame, drive_system_frame, drive_system_2_frame, arm_frame, control_frame, sound_system_frame = get_shared_frames(
             self, mqtt_sender)
@@ -139,6 +151,9 @@ class PageThree(tk.Frame):
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
+
+        self.publish_topic_name = mqtt_sender.connect_to_ev3()
+
         self.controller = controller
         label = tk.Label(self, text="This is page 3(Maze Solver)", font=controller.title_font)
         label.grid(row=0, column=0)
