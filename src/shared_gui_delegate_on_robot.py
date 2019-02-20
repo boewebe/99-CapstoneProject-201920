@@ -98,7 +98,7 @@ class ResponderToGUIMessages(object):
         m2.run_test_object_pick_up_with_frequency(int(freq), int(rate_of_freq))
 
     def m3_rate_of_beeps(self,initial_beep_rate, rate_of_beep_increase):
-        m3.test_increasing_beeps_as_approach(int(initial_beep_rate), int(rate_of_beep_increase))
+        m3.test_increasing_beeps_a1s_approach(int(initial_beep_rate), int(rate_of_beep_increase))
 
     def m1_rate_of_leds(self, intital_led_rate, rate_of_led_increase):
         m1.test_led_pickup(int(intital_led_rate), int(rate_of_led_increase))
