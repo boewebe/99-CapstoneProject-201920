@@ -34,9 +34,9 @@ def grid_frames(teleop_frame, drive_system_frame, drive_system_2_frame, arm_fram
     sound_system_frame.grid(row=1, column=1)
 
 
-def handle_note_sender_to_robot(mqtt_sender, frequency, duration):
+def handle_note_sender_to_robot(mqtt_sender, frequency):
     print('sending note, ', frequency, 'hertz')
-    mqtt_sender.send_message('play_tone', [frequency, duration])
+    mqtt_sender.send_message('play_tone', [frequency, 0.5])
 
 mqtt_sender = com.MqttClient()
 # mqtt_sender.connect_to_ev3()
@@ -94,14 +94,14 @@ class StartPage(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
-        label = tk.Label(self, text="This is the Main Menu", font=controller.title_font)
+        label = tk.Label(self, text="Main Menu", font=controller.title_font)
         label.pack(side="top", fill="x", pady=10)
 
-        button1 = tk.Button(self, text="Go to Page One(Robo-keyboard)",
+        button1 = tk.Button(self, text="Go to Robo-Piano",
                             command=lambda: controller.show_frame("PageOne"))
-        button2 = tk.Button(self, text="Go to Page Two(Simple Teleoperations)",
+        button2 = tk.Button(self, text="Go to Simple Teleoperations",
                             command=lambda: controller.show_frame("PageTwo"))
-        button3 = tk.Button(self, text="Go to Page Three(Maze Solver)",
+        button3 = tk.Button(self, text="Go to Maze Solver",
                             command=lambda: controller.show_frame("PageThree"))
         button1.pack()
         button2.pack()
@@ -116,13 +116,37 @@ class PageOne(tk.Frame):
         self.publish_topic_name = mqtt_sender.connect_to_ev3()
 
         self.controller = controller
-        label = tk.Label(self, text="This is page 1", font=controller.title_font)
-        label.pack(side="top", fill="x", pady=10)
+        label = tk.Label(self, text="This is Robo-Piano", font=controller.title_font)
+        label.grid(row=0, column=0)
         button = tk.Button(self, text="Return to the start page",
                            command=lambda: controller.show_frame("StartPage"))
-        button.pack()
-        key1 = tk.Button(self, text='C4', command=lambda: handle_note_sender_to_robot(mqtt_sender, 440, 1))
-        key1.pack()
+        button.grid(row=1, column=0)
+        C4 = tk.Button(self, text='C4', command=lambda: handle_note_sender_to_robot(mqtt_sender, 261.6))
+        C4.grid(row=3, column=1)
+        Csharp4 = tk.Button(self, text='C#4', command=lambda: handle_note_sender_to_robot(mqtt_sender, 277.18))
+        Csharp4.grid(row=2, column=2)
+        D4 = tk.Button(self, text='D4', command=lambda: handle_note_sender_to_robot(mqtt_sender, 293.66))
+        D4.grid(row=3, column=3)
+        Dsharp4 = tk.Button(self, text='D#4', command=lambda: handle_note_sender_to_robot(mqtt_sender, 311.12))
+        Dsharp4.grid(row=2, column=4)
+        E4 = tk.Button(self, text='E4', command=lambda: handle_note_sender_to_robot(mqtt_sender, 329.62))
+        E4.grid(row=3, column=5)
+        F4 = tk.Button(self, text='F4', command=lambda: handle_note_sender_to_robot(mqtt_sender, 349.22))
+        F4.grid(row=3, column=6)
+        Fsharp4 = tk.Button(self, text='F#4', command=lambda: handle_note_sender_to_robot(mqtt_sender, 369.99))
+        Fsharp4.grid(row=2, column=7)
+        G4 = tk.Button(self, text='G4', command=lambda: handle_note_sender_to_robot(mqtt_sender, 391.99))
+        G4.grid(row=3, column=8)
+        Gsharp4 = tk.Button(self, text='G#4', command=lambda: handle_note_sender_to_robot(mqtt_sender, 415.30))
+        Gsharp4.grid(row=2, column=9)
+        A4 = tk.Button(self, text='A4', command=lambda: handle_note_sender_to_robot(mqtt_sender, 440))
+        A4.grid(row=3, column=10)
+        Asharp4 = tk.Button(self, text='A#4', command=lambda: handle_note_sender_to_robot(mqtt_sender, 466.16))
+        Asharp4.grid(row=2, column=11)
+        B4 = tk.Button(self, text='B4', command=lambda: handle_note_sender_to_robot(mqtt_sender, 493.88))
+        B4.grid(row=3, column=12)
+        C5 = tk.Button(self, text='C5', command=lambda: handle_note_sender_to_robot(mqtt_sender, 523.25))
+        C5.grid(row=3, column=13)
 
 
 
@@ -159,7 +183,7 @@ class PageThree(tk.Frame):
         label.grid(row=0, column=0)
         button = tk.Button(self, text="Return to the start page",
                            command=lambda: controller.show_frame("StartPage"))
-        button.grid(row=0, column=1)
+        button.grid(row=1, column=0)
 
 
 
