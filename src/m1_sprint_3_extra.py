@@ -78,6 +78,7 @@ def find_object():
 
 def color_sensor_play_note(time_to_stop):
     robot = rosebot.RoseBot()
+    print("Hello")
     print("Play Note Based on Color")
     initial_time = time.time()
     robot.drive_system.go(50, 50)

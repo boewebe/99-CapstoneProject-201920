@@ -75,6 +75,9 @@ def draw_staff(mqtt_sender):
     play_tune_by_color_button = ttk.Button(root, text="Run")
     play_tune_by_color_button.grid(row=9, column=1)
 
+    calibrate_arm_button = ttk.Button(root, text="Calibrate Arm")
+    calibrate_arm_button.grid(row=10, column=1)
+
     stop_button["command"] = lambda: handle_stop(mqtt_sender)
     play_song1_button["command"] = lambda: handle_play_song_1(mqtt_sender, canvas)
     play_song2_button["command"] = lambda: handle_play_song_2(mqtt_sender, canvas)
@@ -82,6 +85,7 @@ def draw_staff(mqtt_sender):
     find_object_button["command"] = lambda: handle_find_object(mqtt_sender)
     play_note_by_color_button["command"] = lambda: handle_color_sensor_play_note(mqtt_sender, time_to_stop_entry)
     play_tune_by_color_button["command"] = lambda: handle_color_sensor_play_tune(mqtt_sender, time_to_stop_entry)
+    calibrate_arm_button["command"] = lambda: handle_calibrate_arm(mqtt_sender)
 
     root.mainloop()
 
@@ -159,11 +163,15 @@ def handle_find_object(mqtt_sender):
 
 def handle_color_sensor_play_note(mqtt_sender, time_to_stop):
     print("color sensor - play note unless not found within", int(time_to_stop.get()), "seconds")
-    mqtt_sender.send_message('m1_color_sensor_play_note'[int(time_to_stop.get())])
+    mqtt_sender.send_message('m1_color_sensor_play_note',[int(time_to_stop.get())])
 
 def handle_color_sensor_play_tune(mqtt_sender, time_to_stop):
     print("color sensor - play tune unless not found within", int(time_to_stop.get()), "seconds")
-    mqtt_sender.send_message('m1_color_sensor_play_note'[int(time_to_stop.get())])
+    mqtt_sender.send_message('m1_color_sensor_play_tune',[int(time_to_stop.get())])
+
+def handle_calibrate_arm(mqtt_sender):
+    print("Calibrate Arm")
+    mqtt_sender.send_message('calibrate_arm')
 
 
 def main():
