@@ -158,22 +158,27 @@ def color_sensor_play_note(time_to_stop):
     robot.drive_system.go(50, 50)
     while True:
         if robot.sensor_system.color_sensor.get_color_as_name() == 'Red':
+            print("Red")
             robot.drive_system.stop()
             A4_note()
             break
         if robot.sensor_system.color_sensor.get_color_as_name() == 'Green':
+            print("Green")
             robot.drive_system.stop()
             B4_note()
             break
         if robot.sensor_system.color_sensor.get_color_as_name() == 'Yellow':
+            print("Yellow")
             robot.drive_system.stop()
             C5_note()
             break
         if robot.sensor_system.color_sensor.get_color_as_name() == 'Black':
+            print("Black")
             robot.drive_system.stop()
             C5_sharp_note()
             break
         if time.time() - initial_time >= time_to_stop:
+            print("I did not find any color")
             robot.drive_system.stop()
             robot.sound_system.speech_maker.speak("I did not find any color")
             break
@@ -186,6 +191,7 @@ def color_sensor_play_tune(time_to_stop):
     robot.drive_system.go(50, 50)
     while True:
         if robot.sensor_system.color_sensor.get_color_as_name() == 'Red':
+            print("Red")
             robot.drive_system.stop()
             A4_note()
             B4_note()
@@ -194,6 +200,7 @@ def color_sensor_play_tune(time_to_stop):
             E5_note()
             break
         if robot.sensor_system.color_sensor.get_color_as_name() == 'Green':
+            print("Green")
             robot.drive_system.stop()
             A4_note()
             A4_note()
@@ -204,6 +211,7 @@ def color_sensor_play_tune(time_to_stop):
             E5_note()
             break
         if robot.sensor_system.color_sensor.get_color_as_name() == 'Yellow':
+            print("Yellow")
             robot.drive_system.stop()
             G4_note()
             B4_note()
@@ -212,6 +220,7 @@ def color_sensor_play_tune(time_to_stop):
             G4_note()
             break
         if robot.sensor_system.color_sensor.get_color_as_name() == 'Black':
+            print("Black")
             robot.drive_system.stop()
             G4_note()
             B4_note()
@@ -223,6 +232,7 @@ def color_sensor_play_tune(time_to_stop):
             G4_note()
             break
         if time.time() - initial_time >= time_to_stop:
+            print("I did not find any color")
             robot.drive_system.stop()
             robot.sound_system.speech_maker.speak("I did not find any color")
             break
