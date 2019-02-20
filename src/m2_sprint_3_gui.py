@@ -55,9 +55,8 @@ def cup_image(window):
     return img
 
 def handle_scramble(mqtt_sender):
-    print('Scrambling')
     mqtt_sender.send_message("scramble_function")
-
+    print('Scrambling')
 
 def handle_check(mqtt_sender, cup_2_entry):
     print('Check')
