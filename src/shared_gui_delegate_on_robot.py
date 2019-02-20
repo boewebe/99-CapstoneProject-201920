@@ -11,6 +11,7 @@ import rosebot
 import m2_feature_9 as m2
 import m3_feature_9 as m3
 import m1_feature_9 as m1
+import m1_sprint_3 as m1_3
 
 class ResponderToGUIMessages(object):
     def __init__(self, robot):
@@ -103,13 +104,29 @@ class ResponderToGUIMessages(object):
     def m1_rate_of_leds(self, intital_led_rate, rate_of_led_increase):
         m1.test_led_pickup(int(intital_led_rate), int(rate_of_led_increase))
 
-    def m1_sprint_3_Color(self, mqtt_sender, root, canvas, note_head_start):
-        color = self.robot.sensor_system.color_sensor.get_color_as_name()
-        print(color)
+    def m1_sprint3_song_1(self):
+        m1_3.A4_note()
+        m1_3.B4_note()
+        m1_3.C5_sharp_note()
+        m1_3.D5_note()
+        m1_3.E5_note()
 
-        if color == 'Red':
-            note_head_start = A4_note(mqtt_sender, root, canvas, note_head_start)
+    def m1_sprint3_song_2(self):
+        m1_3.A4_note()
+        m1_3.A4_note()
+        m1_3.E5_note()
+        m1_3.E5_note()
+        m1_3.F5_sharp_note()
+        m1_3.E5_note()
 
-        if color == 'Black':
-            note_head_start = B4_note(mqtt_sender, root, canvas, note_head_start)
+    def m1_sprint3_song_3(self):
+        m1_3.G4_note()
+        m1_3.B4_note()
+        m1_3.D5_note()
+        m1_3.B4_note()
+        m1_3.G4_note()
 
+    def m1_find_object(self):
+        m1_3.find_object()
+
+    def m1_color_sensor_play_note(self):
