@@ -49,6 +49,8 @@ def draw_staff(mqtt_sender):
     time_to_stop_entry_label = ttk.Label(root, text="Enter time to stop")
     time_to_stop_entry_label.grid(row=6, column=1)
 
+    play_tune_by_color_label = ttk.Label(root, text="Play Tune by Color")
+    play_tune_by_color_label.grid(row=8, column=1)
 
 # Buttons
     stop_button = ttk.Button(root, text="Stop")
@@ -73,12 +75,16 @@ def draw_staff(mqtt_sender):
     time_to_stop_entry.insert(0, "5")
     time_to_stop_entry.grid(row=7, column=1)
 
+    play_tune_by_color_button = ttk.Button(root, text="Run")
+    play_tune_by_color_button.grid(row=9, column=1)
+
     stop_button["command"] = lambda: handle_stop(mqtt_sender)
     play_song1_button["command"] = lambda: handle_play_song_1(mqtt_sender, canvas)
     play_song2_button["command"] = lambda: handle_play_song_2(mqtt_sender, canvas)
     play_song3_button["command"] = lambda: handle_play_song_3(mqtt_sender, canvas)
     find_object_button["command"] = lambda: handle_find_object(mqtt_sender)
     play_note_by_color_button["command"] = lambda: handle_color_sensor_play_note(mqtt_sender, time_to_stop_entry)
+    play_tune_by_color_button["command"] = lambda: handle_color_sensor_play_tune(mqtt_sender, time_to_stop_entry)
 
     root.mainloop()
 
@@ -128,6 +134,11 @@ def F5_sharp_note():
     print("F#5")
     robot.sound_system.tone_maker.play_tone(739.99, 750).wait()
 
+def G5_note():
+    robot = rosebot.RoseBot()
+    print("G5")
+    robot.sound_system.tone_maker.play_tone(783.99 ,750).wait()
+
 def find_object():
     robot = rosebot.RoseBot()
     print("Find and Pick Up Object")
@@ -164,11 +175,57 @@ def color_sensor_play_note(time_to_stop):
             break
         if time.time() - initial_time >= time_to_stop:
             robot.drive_system.stop()
-            robot.sound_system.speech_maker.speak("I didn't find any color")
+            robot.sound_system.speech_maker.speak("I did not find any color")
             break
 
 
-
+def color_sensor_play_tune(time_to_stop):
+    robot = rosebot.RoseBot()
+    print("Play Tune Based on Color")
+    initial_time = time.time()
+    robot.drive_system.go(50, 50)
+    while True:
+        if robot.sensor_system.color_sensor.get_color_as_name() == 'Red':
+            robot.drive_system.stop()
+            A4_note()
+            B4_note()
+            C5_sharp_note()
+            D5_note()
+            E5_note()
+            break
+        if robot.sensor_system.color_sensor.get_color_as_name() == 'Green':
+            robot.drive_system.stop()
+            A4_note()
+            A4_note()
+            E5_note()
+            E5_note()
+            F5_sharp_note()
+            F5_sharp_note()
+            E5_note()
+            break
+        if robot.sensor_system.color_sensor.get_color_as_name() == 'Yellow':
+            robot.drive_system.stop()
+            G4_note()
+            B4_note()
+            D5_note()
+            B4_note()
+            G4_note()
+            break
+        if robot.sensor_system.color_sensor.get_color_as_name() == 'Black':
+            robot.drive_system.stop()
+            G4_note()
+            B4_note()
+            D5_note()
+            G5_note()
+            G5_note()
+            D5_note()
+            B4_note()
+            G4_note()
+            break
+        if time.time() - initial_time >= time_to_stop:
+            robot.drive_system.stop()
+            robot.sound_system.speech_maker.speak("I did not find any color")
+            break
 
 
 
@@ -242,9 +299,14 @@ def handle_find_object(mqtt_sender):
     print("find object")
     mqtt_sender.send_message('m1_find_object')
 
+
 def handle_color_sensor_play_note(mqtt_sender, time_to_stop):
-    print("color sensor - play note unless not found within", time_to_stop.get(), "seconds")
-    mqtt_sender.send_message('m1_color_sensor_play_note'[time_to_stop.get()])
+    print("color sensor - play note unless not found within", int(time_to_stop.get()), "seconds")
+    mqtt_sender.send_message('m1_color_sensor_play_note'[int(time_to_stop.get())])
+
+def handle_color_sensor_play_tune(mqtt_sender, time_to_stop):
+    print("color sensor - play tune unless not found within", int(time_to_stop.get()), "seconds")
+    mqtt_sender.send_message('m1_color_sensor_play_note'[int(time_to_stop.get())])
 
 
 def main():

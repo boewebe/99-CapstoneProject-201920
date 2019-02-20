@@ -129,4 +129,5 @@ class ResponderToGUIMessages(object):
     def m1_find_object(self):
         m1_3.find_object()
 
-    def m1_color_sensor_play_note(self):
+    def m1_color_sensor_play_note(self, time_to_stop):
+        m1_3.color_sensor_play_note(time_to_stop)
