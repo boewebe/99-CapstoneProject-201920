@@ -52,7 +52,7 @@ mqtt_sender = com.MqttClient()
 
 
 
-class SampleApp(tk.Tk):
+class Menu_GUI(tk.Tk):
 
     mqtt_sender = com.MqttClient()
     mqtt_sender.connect_to_ev3()
@@ -186,7 +186,7 @@ class PageThree(tk.Frame):
         self.publish_topic_name = mqtt_sender.connect_to_ev3()
 
         self.controller = controller
-        label = tk.Label(self, text="This is page 3(Maze Solver)", font=controller.title_font)
+        label = tk.Label(self, text="This is Maze Solver", font=controller.title_font)
         label.grid(row=0, column=0)
         button = tk.Button(self, text="Return to the Main Menu",
                            command=lambda: controller.show_frame("StartPage"))
@@ -198,7 +198,7 @@ class PageThree(tk.Frame):
 
 
 if __name__ == "__main__":
-    app = SampleApp()
+    app = Menu_GUI()
     app.mainloop()
 
 
