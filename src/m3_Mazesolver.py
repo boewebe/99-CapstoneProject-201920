@@ -13,9 +13,15 @@ import time
 
 
 def Mazesolver():
+
+    '''Walks the robot through solving the maze, by stopping at each intersection,
+     determining which way is the longest path, orienting itself in the direction of that path,
+     and then moving in that direction until it reaches another intersection. The program ends
+     when the robot crosses over a black finish line'''
+
     robot = rosebot.RoseBot()
     robot.arm_and_claw.calibrate_arm()
-    while not robot.sensor_system.color_sensor() == 'black':
+    while not robot.sensor_system.color_sensor() == 'Black':
         go_down_hallway(robot)
         time.sleep(0.5)
         path_choosing(robot)
@@ -26,9 +32,16 @@ def Mazesolver():
 
 
 def go_down_hallway(robot):
+
+    '''Makes the robot go down the hallway, stopping when it reaches blue, signaling an intersection,
+    or black, signaling the finish line and end of the maze'''
+
     robot.drive_system.go(50, 50)
     while True:
         if robot.sensor_system.color_sensor() == 'Blue':
+            robot.drive_system.stop()
+            break
+        elif robot.sensor_system.color_sensor() == 'Black':
             robot.drive_system.stop()
             break
         else:
@@ -38,8 +51,8 @@ def go_down_hallway(robot):
 
 def path_choosing(robot):
 
-    # The robot determines which direction from an intersection is the longest path,
-    # and orients itself to go in that direction
+    '''The robot determines which direction from an intersection is the longest path,
+    and orients itself to go in that direction'''
 
     while True:
         sleep_time = 1.6
@@ -98,7 +111,7 @@ def path_choosing(robot):
 
 def average_distance_data(robot):
 
-    # This averages several readings of proximity data, so the robot can choose the correct path
+    '''This averages several readings of proximity data, so the robot can choose the correct path'''
 
     first_reading = robot.sensor_system.ir_proximity_sensor()
     time.sleep(0.2)
