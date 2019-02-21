@@ -717,7 +717,7 @@ def handle_rate_of_freq(mqtt_sender, initial_frequency_entry, rate_entry):
 
 
 def handle_rate_of_beeps(mqtt_sender, rate_of_beeps_entry, increase_beeps_entry):
-    print("we need to change this later... rn its 1 am")
+    print("Picking up with beeps at rate increasing")
 
     mqtt_sender.send_message("m3_rate_of_beeps", [rate_of_beeps_entry.get(),increase_beeps_entry.get()])
 
