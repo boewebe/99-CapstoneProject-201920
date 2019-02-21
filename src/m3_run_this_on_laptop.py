@@ -37,7 +37,7 @@ def grid_frames(teleop_frame, drive_system_frame, drive_system_2_frame, arm_fram
 
 def handle_note_sender_to_robot(mqtt_sender, frequency):
     print('Playing note at', frequency, 'hertz')
-    mqtt_sender.send_message('play_tone', [frequency, 0.5])
+    mqtt_sender.send_message('play_tone', [frequency, 350])
 
 def handle_Mazesolver(mqtt_sender):
     print('Initiating MazeSolver')
