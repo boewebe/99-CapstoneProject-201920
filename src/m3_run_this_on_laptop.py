@@ -36,7 +36,7 @@ def grid_frames(teleop_frame, drive_system_frame, drive_system_2_frame, arm_fram
 
 
 def handle_note_sender_to_robot(mqtt_sender, frequency):
-    print('sending note, ', frequency, 'hertz')
+    print('Playing note at', frequency, 'hertz')
     mqtt_sender.send_message('play_tone', [frequency, 0.5])
 
 def handle_Mazesolver(mqtt_sender):
@@ -128,31 +128,31 @@ class PageOne(tk.Frame):
         button = tk.Button(self, text="Return to the Main Menu",
                            command=lambda: controller.show_frame("StartPage"))
         button.grid(row=1, column=0)
-        C4 = tk.Button(self, text='C4', command=lambda: handle_note_sender_to_robot(mqtt_sender, 261.6))
+        C4 = tk.Button(self, text='C4', bg='white', command=lambda: handle_note_sender_to_robot(mqtt_sender, 261.6))
         C4.grid(row=3, column=1)
-        Csharp4 = tk.Button(self, text='C#4', command=lambda: handle_note_sender_to_robot(mqtt_sender, 277.18))
+        Csharp4 = tk.Button(self, text='C#4', bg='black', foreground='white', command=lambda: handle_note_sender_to_robot(mqtt_sender, 277.18))
         Csharp4.grid(row=2, column=2)
-        D4 = tk.Button(self, text='D4', command=lambda: handle_note_sender_to_robot(mqtt_sender, 293.66))
+        D4 = tk.Button(self, text='D4', bg='white', command=lambda: handle_note_sender_to_robot(mqtt_sender, 293.66))
         D4.grid(row=3, column=3)
-        Dsharp4 = tk.Button(self, text='D#4', command=lambda: handle_note_sender_to_robot(mqtt_sender, 311.12))
+        Dsharp4 = tk.Button(self, text='D#4', bg='black', foreground='white', command=lambda: handle_note_sender_to_robot(mqtt_sender, 311.12))
         Dsharp4.grid(row=2, column=4)
-        E4 = tk.Button(self, text='E4', command=lambda: handle_note_sender_to_robot(mqtt_sender, 329.62))
+        E4 = tk.Button(self, text='E4', bg='white', command=lambda: handle_note_sender_to_robot(mqtt_sender, 329.62))
         E4.grid(row=3, column=5)
-        F4 = tk.Button(self, text='F4', command=lambda: handle_note_sender_to_robot(mqtt_sender, 349.22))
+        F4 = tk.Button(self, text='F4', bg='white', command=lambda: handle_note_sender_to_robot(mqtt_sender, 349.22))
         F4.grid(row=3, column=6)
-        Fsharp4 = tk.Button(self, text='F#4', command=lambda: handle_note_sender_to_robot(mqtt_sender, 369.99))
+        Fsharp4 = tk.Button(self, text='F#4', bg='black', foreground='white', command=lambda: handle_note_sender_to_robot(mqtt_sender, 369.99))
         Fsharp4.grid(row=2, column=7)
-        G4 = tk.Button(self, text='G4', command=lambda: handle_note_sender_to_robot(mqtt_sender, 391.99))
+        G4 = tk.Button(self, text='G4', bg='white', command=lambda: handle_note_sender_to_robot(mqtt_sender, 391.99))
         G4.grid(row=3, column=8)
-        Gsharp4 = tk.Button(self, text='G#4', command=lambda: handle_note_sender_to_robot(mqtt_sender, 415.30))
+        Gsharp4 = tk.Button(self, text='G#4', bg='black', foreground='white', command=lambda: handle_note_sender_to_robot(mqtt_sender, 415.30))
         Gsharp4.grid(row=2, column=9)
-        A4 = tk.Button(self, text='A4', command=lambda: handle_note_sender_to_robot(mqtt_sender, 440))
+        A4 = tk.Button(self, text='A4', bg='white', command=lambda: handle_note_sender_to_robot(mqtt_sender, 440))
         A4.grid(row=3, column=10)
-        Asharp4 = tk.Button(self, text='A#4', command=lambda: handle_note_sender_to_robot(mqtt_sender, 466.16))
+        Asharp4 = tk.Button(self, text='A#4', bg='black', foreground='white', command=lambda: handle_note_sender_to_robot(mqtt_sender, 466.16))
         Asharp4.grid(row=2, column=11)
-        B4 = tk.Button(self, text='B4', command=lambda: handle_note_sender_to_robot(mqtt_sender, 493.88))
+        B4 = tk.Button(self, text='B4', bg='white', command=lambda: handle_note_sender_to_robot(mqtt_sender, 493.88))
         B4.grid(row=3, column=12)
-        C5 = tk.Button(self, text='C5', command=lambda: handle_note_sender_to_robot(mqtt_sender, 523.25))
+        C5 = tk.Button(self, text='C5', bg='white', command=lambda: handle_note_sender_to_robot(mqtt_sender, 523.25))
         C5.grid(row=3, column=13)
 
 
