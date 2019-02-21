@@ -13,6 +13,7 @@ import mqtt_remote_method_calls as com
 from tkinter import ttk
 import mqtt_remote_method_calls
 import shared_gui
+import m3_Mazesolver as Mazesolver
 
 
 def get_shared_frames(main_frame, mqtt_sender):
@@ -37,6 +38,14 @@ def grid_frames(teleop_frame, drive_system_frame, drive_system_2_frame, arm_fram
 def handle_note_sender_to_robot(mqtt_sender, frequency):
     print('sending note, ', frequency, 'hertz')
     mqtt_sender.send_message('play_tone', [frequency, 0.5])
+
+
+def Mazesolver(rosebot):
+
+
+
+
+
 
 mqtt_sender = com.MqttClient()
 # mqtt_sender.connect_to_ev3()
