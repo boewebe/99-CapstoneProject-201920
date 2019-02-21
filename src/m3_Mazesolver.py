@@ -21,11 +21,15 @@ def Mazesolver():
 
     robot = rosebot.RoseBot()
     robot.arm_and_claw.calibrate_arm()
-    while not robot.sensor_system.color_sensor() == 'Black':
+    while True:
         go_down_hallway(robot)
         time.sleep(0.5)
+        if robot.sensor_system.color_sensor.get_color_as_name() == 'Green':
+            break
         path_choosing(robot)
         time.sleep(0.5)
+        if robot.sensor_system.color_sensor.get_color_as_name() == 'Green':
+            break
     robot.sound_system.speech_maker.speak('Congratulations')
     print('You did it! You solved this maze!')
 
@@ -37,11 +41,12 @@ def go_down_hallway(robot):
     or black, signaling the finish line and end of the maze'''
 
     robot.drive_system.go(50, 50)
+    time.sleep(1.0)      # this is to allow the robot to get off of the tape marker it is currently on to prevent getting stuck on the same tape marker
     while True:
-        if robot.sensor_system.color_sensor() == 'Blue':
+        if robot.sensor_system.color_sensor.get_color_as_name() == 'Blue':
             robot.drive_system.stop()
             break
-        elif robot.sensor_system.color_sensor() == 'Black':
+        elif robot.sensor_system.color_sensor.get_color_as_name() == 'Green':
             robot.drive_system.stop()
             break
         else:
@@ -55,7 +60,7 @@ def path_choosing(robot):
     and orients itself to go in that direction'''
 
     while True:
-        sleep_time = 1.6
+        sleep_time = 1.45
         greatest_distance = 0
 
 
@@ -113,13 +118,13 @@ def average_distance_data(robot):
 
     '''This averages several readings of proximity data, so the robot can choose the correct path'''
 
-    first_reading = robot.sensor_system.ir_proximity_sensor()
+    first_reading = robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
     time.sleep(0.2)
-    second_reading = robot.sensor_system.ir_proximity_sensor()
+    second_reading = robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
     time.sleep(0.2)
-    third_reading = robot.sensor_system.ir_proximity_sensor()
+    third_reading = robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
     time.sleep(0.2)
-    fourth_reading = robot.sensor_system.ir_proximity_sensor()
+    fourth_reading = robot.sensor_system.ir_proximity_sensor.get_distance_in_inches()
     time.sleep(0.1)
     average_distance = (first_reading + second_reading + third_reading + fourth_reading) / 4
     return average_distance

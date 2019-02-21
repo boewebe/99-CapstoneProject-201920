@@ -13,6 +13,7 @@ import m3_feature_9 as m3
 import m1_feature_9 as m1
 import m1_sprint_3_extra as m1_3
 import m2_sprint_3_functions as m2_func
+import m3_Mazesolver
 
 class ResponderToGUIMessages(object):
     def __init__(self, robot):
@@ -143,3 +144,5 @@ class ResponderToGUIMessages(object):
     def check(self, cup_2_entry):
         m2_func.check(cup_2_entry)
 
+    def mazesolver(self):
+        m3_Mazesolver.Mazesolver()

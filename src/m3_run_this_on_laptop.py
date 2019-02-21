@@ -13,7 +13,10 @@ import mqtt_remote_method_calls as com
 from tkinter import ttk
 import mqtt_remote_method_calls
 import shared_gui
-import m3_Mazesolver as Mazesolver
+import m3_Mazesolver as Maze
+
+def Mazesolver():
+    Maze.Mazesolver()
 
 # gets the require frames for all of the teleoperations that we developed in Parts 1 and 2 of this project
 def get_shared_frames(main_frame, mqtt_sender):
@@ -38,12 +41,12 @@ def grid_frames(teleop_frame, drive_system_frame, drive_system_2_frame, arm_fram
 # handles the button function call for the Robo-piano
 def handle_note_sender_to_robot(mqtt_sender, frequency):
     print('Playing note at', frequency, 'hertz')
-    mqtt_sender.send_message('play_tone', [frequency, 350])
+    mqtt_sender.send_message('play_tone', [frequency, 1])
 
 # handles the button function call for the Mazesolver
 def handle_Mazesolver(mqtt_sender):
     print('Initiating MazeSolver')
-    mqtt_sender.send_message('Mazesolver')
+    mqtt_sender.send_message('mazesolver')
 
 
 
