@@ -6,7 +6,7 @@
     and Colin Browne.
   Winter term, 2018-2019.
 """
-
+# imports other python files
 import tkinter as tk
 from tkinter import font as tkfont
 import mqtt_remote_method_calls as com
@@ -15,7 +15,7 @@ import mqtt_remote_method_calls
 import shared_gui
 import m3_Mazesolver as Mazesolver
 
-
+# gets the require frames for all of the teleoperations that we developed in Parts 1 and 2 of this project
 def get_shared_frames(main_frame, mqtt_sender):
     teleop_frame = shared_gui.get_teleoperation_frame(main_frame, mqtt_sender)
     drive_system_frame = shared_gui.get_drive_system_frame(main_frame, mqtt_sender)
@@ -26,6 +26,7 @@ def get_shared_frames(main_frame, mqtt_sender):
 
     return teleop_frame, drive_system_frame, drive_system_2_frame, arm_frame, control_frame, sound_system_frame
 
+# sets up the griding of the teleoperation frames to import onto a page of the GUI
 def grid_frames(teleop_frame, drive_system_frame, drive_system_2_frame, arm_frame, control_frame, sound_system_frame):
     teleop_frame.grid(row=2, column=2)
     drive_system_frame.grid(row=1, column=0)
@@ -34,11 +35,12 @@ def grid_frames(teleop_frame, drive_system_frame, drive_system_2_frame, arm_fram
     control_frame.grid(row=2, column=1)
     sound_system_frame.grid(row=1, column=1)
 
-
+# handles the button function call for the Robo-piano
 def handle_note_sender_to_robot(mqtt_sender, frequency):
     print('Playing note at', frequency, 'hertz')
     mqtt_sender.send_message('play_tone', [frequency, 350])
 
+# handles the button function call for the Mazesolver
 def handle_Mazesolver(mqtt_sender):
     print('Initiating MazeSolver')
     mqtt_sender.send_message('Mazesolver')
@@ -49,9 +51,8 @@ mqtt_sender = com.MqttClient()
 # mqtt_sender.connect_to_ev3()
 
 
-
-
-
+# Creates the Menu GUI, which houses all the other frames(Robo-Piano, Teleoperations(and its associated subframes),
+# and Mazesolver)
 class Menu_GUI(tk.Tk):
 
     mqtt_sender = com.MqttClient()
@@ -80,7 +81,7 @@ class Menu_GUI(tk.Tk):
             frame = F(parent=container, controller=self)
             self.frames[page_name] = frame
 
-            # put all of the pages in the same location;
+            # puts all of the pages in the same location;
             # the one on the top of the stacking order
             # will be the one that is visible.
             frame.grid(row=0, column=0, sticky="nsew")
@@ -119,6 +120,8 @@ class PageOne(tk.Frame):
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
+
+        '''creates the Robo-Piano frame, including all of the buttons and their assoiated lambda calls'''
 
         self.publish_topic_name = mqtt_sender.connect_to_ev3()
 
@@ -163,6 +166,8 @@ class PageTwo(tk.Frame):
 
         tk.Frame.__init__(self, parent)
 
+        '''Creates all of the Teleoperation frames'''
+
         self.publish_topic_name = mqtt_sender.connect_to_ev3()
 
         teleop_frame, drive_system_frame, drive_system_2_frame, arm_frame, control_frame, sound_system_frame = get_shared_frames(
@@ -182,6 +187,8 @@ class PageThree(tk.Frame):
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
+
+        '''attaches a button on page 3 to run the MazeSolver'''
 
         self.publish_topic_name = mqtt_sender.connect_to_ev3()
 
