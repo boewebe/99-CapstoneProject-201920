@@ -46,17 +46,19 @@ def get_game_frame(window, mqtt_sender):
 
     return frame
 
+
 def cup_image(window):
     path = 'ezgif.com-crop.gif'
     img = tkinter.PhotoImage(file=path)
     panel = ttk.Label(window, image=img)
     panel.image = img
-
     return img
+
 
 def handle_scramble(mqtt_sender):
     mqtt_sender.send_message("scramble_function")
     print('Scrambling')
+
 
 def handle_check(mqtt_sender, cup_2_entry):
     print('Check')
