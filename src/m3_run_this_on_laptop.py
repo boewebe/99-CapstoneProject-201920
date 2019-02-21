@@ -39,11 +39,9 @@ def handle_note_sender_to_robot(mqtt_sender, frequency):
     print('sending note, ', frequency, 'hertz')
     mqtt_sender.send_message('play_tone', [frequency, 0.5])
 
-
-def Mazesolver(rosebot):
-
-
-
+def handle_Mazesolver(mqtt_sender):
+    print('Initiating MazeSolver')
+    mqtt_sender.send_message('Mazesolver')
 
 
 
@@ -63,7 +61,7 @@ class SampleApp(tk.Tk):
 
     def __init__(self, *args, **kwargs):
         tk.Tk.__init__(self, *args, **kwargs)
-        self.title('Main Menu')
+        self.title('Robot, Colin Browne')
         self.title_font = tkfont.Font(family='Helvetica', size=18, weight="bold", slant="italic")
 
       #  self.publish_topic_name = mqtt_sender.publish_topic_name
@@ -127,7 +125,7 @@ class PageOne(tk.Frame):
         self.controller = controller
         label = tk.Label(self, text="This is Robo-Piano", font=controller.title_font)
         label.grid(row=0, column=0)
-        button = tk.Button(self, text="Return to the start page",
+        button = tk.Button(self, text="Return to the Main Menu",
                            command=lambda: controller.show_frame("StartPage"))
         button.grid(row=1, column=0)
         C4 = tk.Button(self, text='C4', command=lambda: handle_note_sender_to_robot(mqtt_sender, 261.6))
@@ -175,7 +173,7 @@ class PageTwo(tk.Frame):
         self.controller = controller
         label = tk.Label(self, text="Simple Teleoperations", font=controller.title_font)
         label.grid(row=0, column=0)
-        button = tk.Button(self, text="Return to the start page",
+        button = tk.Button(self, text="Return to the Main Menu",
                            command=lambda: controller.show_frame("StartPage"))
         button.grid(row=0, column=1)
 
@@ -190,9 +188,12 @@ class PageThree(tk.Frame):
         self.controller = controller
         label = tk.Label(self, text="This is page 3(Maze Solver)", font=controller.title_font)
         label.grid(row=0, column=0)
-        button = tk.Button(self, text="Return to the start page",
+        button = tk.Button(self, text="Return to the Main Menu",
                            command=lambda: controller.show_frame("StartPage"))
         button.grid(row=1, column=0)
+
+        mazesolve_button = tk.Button(self, text='Initiate MazeSolver', command=lambda: handle_Mazesolver(mqtt_sender))
+        mazesolve_button.grid(row=2, column=1)
 
 
 
